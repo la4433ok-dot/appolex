@@ -2,187 +2,90 @@
 <html lang="bn">
 <head>
 
-    
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>🎬 VIDEO PREMIUM • 4K STREAM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MovieFlex - Watch & Earn | Multi-Zone Ads</title>
     
-    <!-- Telegram WebApp & Adsgram Script -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Adsgram SDK -->
+    <script src="https://sad.adsgram.ai/js/sad.min.js" async></script>
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Hind Siliguri', 'Poppins', sans-serif; background: #ffffff; color: #333333; line-height: 1.5; }
 
-        body {
-            background: #0a0a0f;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
-            color: #f0f0f0;
-            padding: 0;
-            min-height: 100vh;
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&display=swap');
-
-        .app-container {
-            max-width: 560px;
-            margin: 0 auto;
-            background: linear-gradient(145deg, #0e0e16 0%, #07070c 100%);
-            min-height: 100vh;
-            position: relative;
-            box-shadow: 0 0 40px rgba(0,0,0,0.5);
-        }
-
-        /* --- VERIFICATION OVERLAY (POPUP STYLE WITH 3 BUTTONS - UPDATED DESIGN) --- */
-        .verify-overlay {
+        /* Robot Verification Modal */
+        .robot-verification {
             position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 30% 20%, #0f0c1f, #020105);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
             z-index: 10000;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            backdrop-filter: blur(16px);
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transition: all 0.3s ease;
         }
-        .verify-overlay.hide {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-        .cinema-ticket {
-            background: linear-gradient(145deg, #1a1c2e, #0c0d1a);
-            border-radius: 64px;
-            padding: 40px 28px;
+        .robot-verification.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+        .robot-box {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 35px 25px;
+            border-radius: 40px;
             text-align: center;
-            max-width: 400px;
-            width: 88%;
-            border: 1px solid rgba(255, 100, 180, 0.6);
-            box-shadow: 0 0 60px rgba(255, 60, 120, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
-            position: relative;
-            overflow: hidden;
+            max-width: 380px;
+            width: 90%;
+            box-shadow: 0 0 50px rgba(0,0,0,0.6);
+            border: 2px solid #ff0000;
+            animation: borderPulse 2s infinite;
         }
-        .cinema-ticket::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,80,140,0.15) 0%, transparent 70%);
-            pointer-events: none;
+        @keyframes borderPulse {
+            0% { border-color: #ff0000; box-shadow: 0 0 20px #ff0000; }
+            50% { border-color: #0000ff; box-shadow: 0 0 20px #0000ff; }
+            100% { border-color: #ff0000; box-shadow: 0 0 20px #ff0000; }
         }
-        .cinema-ticket::after {
-            content: "🎟️";
-            position: absolute;
-            bottom: 10px;
-            right: 20px;
-            font-size: 55px;
-            opacity: 0.2;
-            transform: rotate(-15deg);
-        }
-        .movie-icon {
-            font-size: 72px;
-            filter: drop-shadow(0 0 15px #ff3388);
-            margin-bottom: 8px;
-            animation: floatIcon 2s ease-in-out infinite;
-        }
-        @keyframes floatIcon {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
-        }
-        .cinema-ticket h2 {
-            font-size: 28px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #FFD89B, #FF6B8B, #C86DD7);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: -0.5px;
-        }
-        .popup-desc {
-            color: #ccc;
-            margin: 12px 0 20px;
-            font-size: 14px;
-            font-weight: 500;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-        }
-        /* Three buttons inside popup - UPDATED LUXURY STYLE */
-        .popup-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin: 10px 0 8px;
-        }
-        .popup-action-btn {
-            background: linear-gradient(115deg, #1f1b2e, #141027);
+        .robot-icon { font-size: 70px; color: #ff0000; margin-bottom: 15px; background: rgba(255,0,0,0.2); width: 100px; height: 100px; line-height: 100px; border-radius: 50%; margin: 0 auto 15px; }
+        .robot-box h2 { color: white; margin-bottom: 12px; font-size: 26px; font-weight: 700; }
+        .robot-box p { color: #ccc; margin-bottom: 25px; font-size: 14px; line-height: 1.5; }
+        .verify-buttons-group { display: flex; flex-direction: column; gap: 15px; margin-top: 10px; }
+        .verify-btn {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: white;
             border: none;
-            padding: 15px 10px;
+            padding: 14px 20px;
             border-radius: 60px;
-            font-weight: 800;
             font-size: 18px;
-            color: #fff0f5;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.25s ease;
-            text-align: center;
-            backdrop-filter: blur(8px);
+            transition: transform 0.3s, box-shadow 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 14px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 6px 0 rgba(0,0,0,0.3);
-            border-bottom: 2px solid rgba(255,255,255,0.15);
-        }
-        /* Individual button gradient variants */
-        .popup-action-btn:nth-child(1) {
-            background: linear-gradient(115deg, #2a1a3a, #1a0f2a);
-            border-left: 3px solid #FFB347;
-            border-right: 3px solid #FF6B8B;
-        }
-        .popup-action-btn:nth-child(2) {
-            background: linear-gradient(115deg, #1e2a3a, #121c2a);
-            border-left: 3px solid #FF6B8B;
-            border-right: 3px solid #C86DD7;
-        }
-        .popup-action-btn:nth-child(3) {
-            background: linear-gradient(115deg, #2a1e2e, #181026);
-            border-left: 3px solid #C86DD7;
-            border-right: 3px solid #FFB347;
-        }
-        .popup-action-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+            gap: 12px;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
-        .popup-action-btn:hover::before {
-            left: 100%;
-        }
-        .popup-action-btn:active {
-            transform: scale(0.97);
-            box-shadow: 0 2px 0 rgba(0,0,0,0.3);
-        }
-        .popup-action-btn span {
-            font-size: 28px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-        }
-        /* Loading overlay */
+        .verify-btn i { font-size: 20px; }
+        .verify-btn.hd-btn { background: linear-gradient(135deg, #0000ff, #0088ff); border: 1px solid rgba(255,255,255,0.3); }
+        .verify-btn:hover { transform: scale(1.02); box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+        .verify-btn:disabled { opacity: 0.7; transform: scale(1); cursor: not-allowed; }
+        .video-note { margin-top: 20px; font-size: 12px; color: #ffaa00; display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+        /* Loading Overlay */
         .loading-overlay {
             position: fixed;
-            inset: 0;
-            background: #000000cc;
-            backdrop-filter: blur(16px);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
             z-index: 9999;
             display: none;
             align-items: center;
@@ -190,540 +93,488 @@
             flex-direction: column;
         }
         .loading-overlay.show { display: flex; }
-        .film-spinner {
-            width: 70px;
-            height: 70px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23ff6b8b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v16"/><path d="M16 4v16"/><path d="M2 8h4"/><path d="M2 12h4"/><path d="M2 16h4"/><path d="M18 8h4"/><path d="M18 12h4"/><path d="M18 16h4"/></svg>') no-repeat center;
-            background-size: contain;
-            animation: spinReel 1.2s infinite;
-        }
-        @keyframes spinReel { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .content-hidden { display: none; }
+        .loading-spinner { width: 60px; height: 60px; border: 5px solid #f0f0f0; border-top: 5px solid #ff0000; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loading-text { font-size: 18px; color: #ff0000; font-weight: 500; }
 
-        /* HEADER - STREAMING STYLE UPDATED */
-        .stream-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 20px 12px;
-            background: rgba(8, 8, 16, 0.7);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 70, 120, 0.4);
-            position: sticky;
-            top: 0;
-            z-index: 99;
-        }
-        .logo-premium {
-            font-weight: 900;
-            font-size: 20px;
-            background: linear-gradient(135deg, #F9D976, #F39F86, #FF6B8B);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: -0.3px;
-        }
-        .badge-4k {
-            background: rgba(0,0,0,0.6);
-            border-radius: 30px;
-            padding: 6px 16px;
-            font-size: 12px;
-            font-weight: 800;
-            border: 1px solid #ff6b8b;
-            color: #ff9eb5;
-        }
+        /* Top running bar */
+        .top-bar { background: #ff0000; color: #ffffff; padding: 12px 0; overflow: hidden; position: relative; white-space: nowrap; }
+        .top-bar-content { display: inline-block; animation: scrollLeft 20s linear infinite; padding-left: 100%; font-size: 16px; font-weight: 500; }
+        @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* Hero spotlight */
-        .featured-movie {
-            margin: 18px 20px 24px;
-            border-radius: 36px;
-            overflow: hidden;
-            background: #11101c;
-            border: 1px solid rgba(255, 80, 120, 0.6);
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 20px 30px -12px black;
-        }
-        .featured-img {
-            position: relative;
-            height: 240px;
-            overflow: hidden;
-        }
-        .featured-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: blur(14px) brightness(0.75);
-            transition: 0.3s;
-        }
-        .featured-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .play-circle {
-            font-size: 70px;
-            filter: drop-shadow(0 0 18px #ff3b6f);
-            background: rgba(0,0,0,0.5);
-            border-radius: 100px;
-            padding: 10px;
-            backdrop-filter: blur(5px);
-        }
-        .featured-title {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            margin-top: 12px;
-            background: linear-gradient(135deg, #FFF, #FFB6C1);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .movie-meta {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 18px;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(12px);
-            font-weight: 600;
-            font-size: 13px;
-            color: #ffd0dd;
-        }
+        /* Header */
+        .header { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 15px 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-content { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
+        .logo { display: flex; align-items: center; gap: 15px; }
+        .logo img { height: 45px; width: 45px; border-radius: 50%; object-fit: cover; border: 2px solid #ff0000; transition: all 0.3s ease; }
+        .logo span { font-size: 28px; font-weight: 800; background: linear-gradient(135deg, #ff0000, #0000ff, #ffff00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .cat-scroll {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            padding: 8px 20px 20px;
-            scrollbar-width: thin;
-        }
-        .cat-item {
-            background: rgba(30, 28, 45, 0.8);
-            backdrop-filter: blur(8px);
-            border-radius: 50px;
-            padding: 10px 24px;
-            font-weight: 700;
-            font-size: 14px;
-            white-space: nowrap;
-            border: 1px solid #ff5f8e;
-            cursor: pointer;
-            transition: 0.1s;
-        }
-        .section-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin: 28px 20px 16px;
-        }
-        .section-row h3 {
-            font-size: 20px;
-            font-weight: 800;
-            border-left: 5px solid #ff5f8e;
-            padding-left: 12px;
-        }
-        .see-all {
-            font-size: 13px;
-            color: #ff9bb5;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .movie-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            padding: 0 20px;
-        }
-        .movie-card {
-            background: rgba(18, 17, 28, 0.8);
-            backdrop-filter: blur(12px);
-            border-radius: 28px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 100, 140, 0.3);
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .movie-card:active { transform: scale(0.97); background: #201e34; }
-        .card-media {
-            position: relative;
-            height: 140px;
-        }
-        .card-media img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: blur(12px);
-        }
-        .card-badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: linear-gradient(145deg, #ff3366, #ff884d);
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-size: 10px;
-            font-weight: 800;
-        }
-        .card-info {
-            padding: 14px 12px 12px;
-        }
-        .card-title {
-            font-weight: 800;
-            display: flex;
-            justify-content: space-between;
-        }
-        .card-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            color: #bbaad0;
-        }
-        .vip-pass {
-            background: linear-gradient(115deg, #1a142f, #0f0b1f);
-            margin: 32px 20px;
-            border-radius: 48px;
-            padding: 24px 20px;
-            border: 2px solid #ffbc6e;
-            cursor: pointer;
-            text-align: center;
-        }
-        .pass-glow {
-            font-size: 34px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #FEE190, #FFB347, #FF6B8B);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .live-row {
-            display: flex;
-            gap: 18px;
-            margin: 0 20px 30px;
-        }
-        .live-card {
-            flex: 1;
-            background: #131129;
-            border-radius: 32px;
-            padding: 12px;
-            border: 1px solid #ff678a;
-            cursor: pointer;
-        }
-        .live-preview {
-            width: 100%;
-            height: 110px;
-            object-fit: cover;
-            border-radius: 24px;
-            filter: blur(9px);
-        }
-        .live-badge-red {
-            background: #e02b4b;
-            display: inline-block;
-            padding: 4px 14px;
-            border-radius: 50px;
-            font-size: 11px;
-            font-weight: 800;
-            margin-top: 8px;
-        }
-        .hot-links-cinema {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            margin: 30px 20px 25px;
-        }
-        .hot-cinema {
-            flex: 1 1 42%;
-            background: #15122a;
-            padding: 16px 8px;
-            border-radius: 44px;
-            text-align: center;
-            font-weight: 700;
-            border-bottom: 4px solid #ff7b9c;
-            cursor: pointer;
-        }
-        .double-special {
-            display: flex;
-            gap: 18px;
-            margin: 20px 20px 30px;
-        }
-        .special-offer {
-            flex: 1;
-            background: #120f22;
-            border-radius: 36px;
-            padding: 20px 12px;
-            text-align: center;
-            border: 1px solid #ff7b9c;
-            cursor: pointer;
-        }
-        .footer-cinema {
-            text-align: center;
-            padding: 28px;
-            background: #0a0914;
-            border-top: 1px solid #ff608030;
-            font-size: 11px;
-            margin-top: 20px;
-        }
+        /* Categories */
+        .categories { max-width: 1400px; margin: 20px auto; padding: 0 20px; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+        .categories::-webkit-scrollbar { display: none; }
+        .category-wrapper { display: inline-flex; gap: 12px; }
+        .category-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: #f0f0f0; border-radius: 50px; font-size: 15px; font-weight: 500; color: #333; cursor: pointer; transition: all 0.3s ease; border: 2px solid transparent; }
+        .category-btn:hover { transform: translateY(-2px); }
+        .category-btn.active { background: linear-gradient(135deg, #ff0000, #0000ff, #ffff00); color: white; }
+
+        /* Trending Banner */
+        .trending-banner { max-width: 1400px; margin: 20px auto; padding: 0 20px; }
+        .trending-card { position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; cursor: pointer; border: 4px solid transparent; animation: threeColorBorder 3s infinite; }
+        @keyframes threeColorBorder { 0% { border-color: #ff0000; box-shadow: 0 0 15px #ff0000; } 33% { border-color: #0000ff; box-shadow: 0 0 15px #0000ff; } 66% { border-color: #ffff00; box-shadow: 0 0 15px #ffff00; } 100% { border-color: #ff0000; box-shadow: 0 0 15px #ff0000; } }
+        .trending-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .trending-card:hover .trending-image { transform: scale(1.05); }
+        .trending-title-container { max-width: 1400px; margin: 10px auto 30px; padding: 0 20px; display: flex; align-items: center; gap: 15px; }
+        .trending-title { font-size: 32px; font-weight: 800; color: #333; }
+        .trending-badge { background: linear-gradient(135deg, #ff0000, #0000ff, #ffff00); color: white; padding: 5px 15px; border-radius: 50px; font-size: 14px; }
+
+        /* Movie Grid */
+        .movie-section { max-width: 1400px; margin: 30px auto; padding: 0 20px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .section-header h2 { font-size: 24px; font-weight: 700; color: #333; }
+        .movie-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        @media (min-width: 640px) { .movie-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 1024px) { .movie-grid { grid-template-columns: repeat(5, 1fr); } }
+
+        /* Movie Card */
+        .movie-card { position: relative; border-radius: 15px; overflow: hidden; background: white; border: 2px solid #eee; transition: transform 0.3s; }
+        .movie-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .movie-thumbnail { position: relative; aspect-ratio: 16/9; overflow: hidden; }
+        .movie-thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .movie-card:hover .movie-thumbnail img { transform: scale(1.05); }
+        .movie-quality { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 5px; font-size: 11px; z-index: 2; }
+        .movie-info { padding: 12px; background: white; position: relative; }
+        .movie-title { font-weight: 600; font-size: 15px; margin-bottom: 8px; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .movie-meta { display: flex; justify-content: space-between; align-items: center; color: #666; font-size: 12px; margin-bottom: 12px; }
+        .watch-btn { width: 100%; background: linear-gradient(135deg, #ff0000, #cc0000); color: white; border: none; padding: 10px; border-radius: 30px; font-weight: 700; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s; border: 1px solid rgba(255,255,255,0.3); }
+        .watch-btn i { font-size: 14px; }
+        .watch-btn:hover { background: linear-gradient(135deg, #cc0000, #aa0000); transform: scale(1.02); }
+        .watch-btn.locked { background: linear-gradient(135deg, #888, #666); cursor: pointer; opacity: 0.8; }
+        .watch-btn.locked:hover { transform: scale(1.02); background: linear-gradient(135deg, #777, #555);}
+        .watch-btn.unlocked { background: linear-gradient(135deg, #00aa55, #008844); animation: pulseGreen 0.5s ease; }
+        @keyframes pulseGreen { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+        .like-btn { position: absolute; bottom: 12px; right: 12px; width: 32px; height: 32px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; border: 2px solid #ff0000; color: #ff0000; z-index: 3; }
+        .like-btn.active { background: #ff0000; color: white; }
+        .lock-info { font-size: 11px; color: #ff6600; text-align: center; margin-top: 6px; }
+
+        /* Player Section */
+        .player-section { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; overflow-y: auto; display: none; }
+        .player-section.active { display: block; }
+        .player-header { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 15px 20px; display: flex; align-items: center; gap: 15px; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .back-btn { width: 45px; height: 45px; border-radius: 50%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; }
+        .back-btn:hover { background: #ddd; }
+        .clear-container { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 400px; background: #f8f9fa; padding: 30px 20px; }
+        .clear-content { text-align: center; max-width: 700px; width: 100%; }
+        .clear-image { width: 100%; max-width: 400px; border-radius: 20px; margin: 0 auto 25px; display: block; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 4px solid white; }
+        .watch-now-btn { background: linear-gradient(135deg, #ff0000, #0000ff, #ffff00); color: white; border: none; padding: 16px 50px; border-radius: 60px; font-size: 24px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 30px rgba(255,0,0,0.4); transition: all 0.3s; display: inline-flex; align-items: center; gap: 12px; }
+        .watch-now-btn:hover { transform: scale(1.05); }
+        .action-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 25px; }
+        .premium-btn { padding: 12px 35px; border-radius: 50px; font-size: 16px; font-weight: 600; text-decoration: none; color: white; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; cursor: pointer; border: none; }
+        .premium-btn.download { background: linear-gradient(135deg, #ff0000, #0000ff); }
+        .premium-btn.live { background: linear-gradient(135deg, #0000ff, #ffff00); }
+        .premium-btn:hover { transform: scale(1.05); }
+        .telegram-btn { position: fixed; bottom: 30px; right: 30px; z-index: 99; background: linear-gradient(135deg, #0088cc, #00aaff); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; cursor: pointer; box-shadow: 0 5px 20px rgba(0,136,204,0.4); }
+        .main-content { visibility: hidden; opacity: 0; transition: visibility 0s, opacity 0.5s ease; }
+        .main-content.visible { visibility: visible; opacity: 1; }
+        .telegram-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 3000; opacity: 0; visibility: hidden; transition: 0.3s; }
+        .telegram-modal.show { opacity: 1; visibility: visible; }
+        .telegram-modal-content { background: white; border-radius: 30px; padding: 30px; text-align: center; max-width: 350px; }
+        .telegram-join-btn { background: #0088cc; color: white; padding: 12px 30px; border: none; border-radius: 50px; margin-top: 15px; cursor: pointer; font-size: 16px; }
+        .telegram-close { margin-top: 15px; cursor: pointer; color: #666; }
     </style>
 </head>
 <body>
-<div class="app-container">
-    <!-- POPUP OVERLAY: 3 BUTTONS DIRECTLY INSIDE FIRST VERIFICATION - UPDATED STYLE -->
-    <div class="verify-overlay" id="verifyOverlay">
-        <div class="cinema-ticket">
-            <div class="movie-icon">🎬</div>
-            <h2>UNLOCK PREMIUM</h2>
-            <p class="popup-desc">✨ বিডিও জগতে প্রবেশ করতে যেকোনো একটি বেছে নিন ✨<br>একটি ভিডিও দেখুন এবং সম্পূর্ণ অ্যাক্সেস পান</p>
-            <div class="popup-buttons">
-                <div class="popup-action-btn" id="popupKidsBtn">
-                    <span>🥵</span> বাচ্চাদের ভিডিও
-                </div>
-                <div class="popup-action-btn" id="popupRussianBtn">
-                    <span>🔥</span> রাশিয়ান বিডিও
-                </div>
-                <div class="popup-action-btn" id="popupHdBtn">
-                    <span>🎬</span> play HD video
-                </div>
+    <!-- Robot Verification Modal with separate zone IDs per button -->
+    <div class="robot-verification" id="robotVerification">
+        <div class="robot-box">
+            <div class="robot-icon"><i class="fas fa-video"></i></div>
+            <h2>📺 Premium ভিডিও দেখুন</h2>
+            <p>সকল প্রিমিয়াম ভিডিও আনলক করতে নিচের যেকোনো বাটনে ক্লিক করুন।<br>প্রতিটি বাটনের জন্য <strong style="color:#ffaa00;"></strong> !</p>
+            <div class="verify-buttons-group">
+                <button class="verify-btn" id="playVideoBtn">
+                    <i class="fas fa-play-circle"></i> প্লে ভিডিও 
+                </button>
+                <button class="verify-btn hd-btn" id="playHdVideoBtn">
+                    <i class="fas fa-film"></i> প্লে এইচডি ভিডিও 
+                </button>
             </div>
-            <p style="font-size: 11px; margin-top: 18px; opacity:0.7;">🎬 ভিডিও দেখার পর পুরো কন্টেন্ট আনলক হবে</p>
+            <div class="video-note">
+                <i class="fas fa-shield-alt"></i> <span></span>
+            </div>
         </div>
     </div>
 
     <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
-        <div class="film-spinner"></div>
-        <div class="loading-text" style="color:#ff8aac; margin-top: 15px; font-weight:700;">LOADING 4K CINEMA ...</div>
+        <div class="loading-spinner"></div>
+        <div class="loading-text">এড দেখানো হচ্ছে...</div>
+        <div class="loading-text" style="font-size: 14px; margin-top: 10px;">অনুগ্রহ করে অপেক্ষা করুন</div>
     </div>
 
-    <!-- Main Content (initially hidden) -->
-    <div class="content-hidden" id="mainContent">
-        <div class="stream-header">
-            <div class="logo-premium">🎥 CINEMA<span style="color:#ff6b8b;"> PREMIUM</span></div>
-            <div class="badge-4k">4K ULTRA HD</div>
-        </div>
+    <div class="main-content" id="mainContent">
+        <div class="top-bar"><div class="top-bar-content"><i class="fas fa-film"></i> ওয়াচ করুন আর ডাউনলোড করুন ফ্রিতে। প্রতিটি ভিডিও আনলক করতে ২টি এড দেখুন। <i class="fas fa-clock"></i> ২টি এড <i class="fas fa-unlock-alt"></i></div></div>
 
-        <!-- Featured Movie Hero -->
-        <div class="featured-movie" id="heroBlur">
-            <div class="featured-img">
-                <img src="https://i.ibb.co.com/Xk6JGmP6/dark-theme-of-video-player-window-in-a-night-mode.jpg" alt="featured" onerror="this.src='https://placehold.co/600x400/1e1a2e/ff88aa?text=PREMIERE'">
-                <div class="featured-overlay">
-                    <div class="play-circle">▶</div>
-                    <div class="featured-title">NOW STREAMING</div>
-                </div>
-                <div class="movie-meta" id="heroStats">
-                    <span>🔥 <span id="heroViews">৪.১</span>M views</span>
-                    <span>⭐ <span id="heroLikes">৮৫২</span>K</span>
-                    <span>💬 <span id="heroComments">২১৪</span>K</span>
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://i.ibb.co.com/M5sn0X7J/1775956953020.jpg" alt="Logo">
+                    <span>Video Hub</span>
                 </div>
             </div>
         </div>
 
-        <div class="cat-scroll">
-            <div class="cat-item" id="pill1">🎬 ACTION</div>
-            <div class="cat-item" id="pill2">🔥 BOLLYWOOD</div>
-            <div class="cat-item" id="pill3">💋 ROMANCE 18+</div>
-            <div class="cat-item" id="pill4">🎥 EXCLUSIVE</div>
-            <div class="cat-item" id="pill5">🌙 WEBCAM</div>
-            <div class="cat-item" id="pill6">📀 4K COLLECTION</div>
-        </div>
-
-        <div class="section-row">
-            <h3>⚡ TRENDING NOW</h3>
-            <span class="see-all" id="viewAllTrending">ALL MOVIES ›</span>
-        </div>
-        <div class="movie-grid" id="trendingGrid">
-            <div class="movie-card" id="trend1" data-link="https://t.me/o0Uq6h5R0p80ZGE1bot?startapp">
-                <div class="card-media"><img src="https://i.imgur.com/5vzBNBz.jpeg"><span class="card-badge">HDR</span></div>
-                <div class="card-info"><div class="card-title"><span>🔞 College Diaries</span><span>★ <span class="rating1">4.8</span></span></div><div class="card-stats"><span>👁 <span class="view1">৭৮৯</span>K</span><span>❤️ <span class="like1">৫৬</span>K</span><span>💬 <span class="comment1">২৩</span>K</span></div></div>
-            </div>
-            <div class="movie-card" id="trend2" data-link="https://t.me/khelahobe07_bot?startapp">
-                <div class="card-media"><img src="https://i.imgur.com/ZnFW6E2.jpeg"><span class="card-badge">NEW</span></div>
-                <div class="card-info"><div class="card-title"><span>💋 Wedding Night</span><span>★ <span class="rating2">4.9</span></span></div><div class="card-stats"><span>👁 <span class="view2">১.২</span>M</span><span>❤️ <span class="like2">৮৯</span>K</span><span>💬 <span class="comment2">৪৫</span>K</span></div></div>
-            </div>
-            <div class="movie-card" id="trend3" data-link="https://t.me/f785OSC7KPk4MGJl4abot?startapp">
-                <div class="card-media"><img src="https://i.imgur.com/UiW5o8Z.jpeg"><span class="card-badge">VIRAL</span></div>
-                <div class="card-info"><div class="card-title"><span>👄 Hotel Room</span><span>★ <span class="rating3">4.7</span></span></div><div class="card-stats"><span>👁 <span class="view3">৫৬৫</span>K</span><span>❤️ <span class="like3">৪২</span>K</span><span>💬 <span class="comment3">১৮</span>K</span></div></div>
-            </div>
-            <div class="movie-card" id="trend4" data-link="https://t.me/o0Uq6h5R0p80ZGE1bot?startapp">
-                <div class="card-media"><img src="https://i.imgur.com/R0XQv0T.jpeg"><span class="card-badge">EXCLUSIVE</span></div>
-                <div class="card-info"><div class="card-title"><span>🎭 Secretary Affair</span><span>★ <span class="rating4">4.9</span></span></div><div class="card-stats"><span>👁 <span class="view4">৯৯২</span>K</span><span>❤️ <span class="like4">৭৩</span>K</span><span>💬 <span class="comment4">৩১</span>K</span></div></div>
-            </div>
-            <div class="movie-card" id="trend5" data-link="https://t.me/f785OSC7KPk4MGJl4abot?startapp">
-                <div class="card-media"><img src="https://i.imgur.com/sG7QqGh.jpeg"><span class="card-badge">HOT</span></div>
-                <div class="card-info"><div class="card-title"><span>💦 Massage Center</span><span>★ <span class="rating5">4.6</span></span></div><div class="card-stats"><span>👁 <span class="view5">৩৪৫</span>K</span><span>❤️ <span class="like5">২৮</span>K</span><span>💬 <span class="comment5">১২</span>K</span></div></div>
-            </div>
-            <div class="movie-card" id="trend6" data-link="https://t.me/o0Uq6h5R0p80ZGE1bot?startapp">
-                <div class="card-media"><img src="https://i.imgur.com/KLh6VhO.jpeg"><span class="card-badge">ULTRA 4K</span></div>
-                <div class="card-info"><div class="card-title"><span>👙 Hostel Nights</span><span>★ <span class="rating6">4.8</span></span></div><div class="card-stats"><span>👁 <span class="view6">৮৮২</span>K</span><span>❤️ <span class="like6">৬৪</span>K</span><span>💬 <span class="comment6">২৭</span>K</span></div></div>
+        <div class="categories">
+            <div class="category-wrapper">
+                <div class="category-btn active" data-category="all" onclick="filterMovies('all')"><i class="fas fa-globe"></i> সবগুলো</div>
+                <div class="category-btn" data-category="trending" onclick="filterMovies('trending')"><i class="fas fa-fire"></i> ট্রেন্ডিং</div>
+                <div class="category-btn" data-category="russian" onclick="filterMovies('russian')"><i class="fas fa-flag"></i> রাশিয়ান</div>
+                <div class="category-btn" data-category="kids" onclick="filterMovies('kids')"><i class="fas fa-child"></i> বাচ্চাদের</div>
+                <div class="category-btn" data-category="deshi" onclick="filterMovies('deshi')"><i class="fas fa-home"></i> দেশী</div>
+                <div class="category-btn" data-category="celebrity" onclick="filterMovies('celebrity')"><i class="fas fa-star"></i> সেলিব্রিটি</div>
+                <div class="category-btn" data-category="favorites" onclick="showFavorites()"><i class="fas fa-heart" style="color:#ff0000;"></i> পছন্দের</div>
             </div>
         </div>
 
-        <div class="vip-pass" id="vipBanner" data-link="https://t.me/f785OSC7KPk4MGJl4abot?startapp">
-            <span style="background:#f5b64240; padding:6px 18px; border-radius:40px; font-size:12px;">⭐ LIMITED PASS</span>
-            <div class="pass-glow" style="margin:16px 0;">UNLIMITED CINEMA PASS</div>
-            <div style="background: #00000060; border-radius: 40px; padding:12px; font-weight:800;">🚀 80% OFF — JOIN TODAY</div>
-            <p style="margin-top:14px; font-size:12px;" id="vipViewer">১২.৪K members joined</p>
-        </div>
-
-        <div class="section-row"><h3>🔴 LIVE NOW</h3><span class="see-all" id="viewAllLive">ALL STREAMS ›</span></div>
-        <div class="live-row">
-            <div class="live-card" id="live1" data-link="https://t.me/o0Uq6h5R0p80ZGE1bot?startapp">
-                <img class="live-preview" src="https://i.imgur.com/jUvXU8r.jpeg">
-                <div class="live-badge-red">🔴 LIVE</div>
-                <p style="font-weight:800; margin-top:10px;">Hot Jessica</p>
-                <div><span id="live1Viewers">২.৮K watching</span> ❤️ <span id="live1Likes">১২.৪</span>K</div>
-            </div>
-            <div class="live-card" id="live2" data-link="https://t.me/f785OSC7KPk4MGJl4abot?startapp">
-                <img class="live-preview" src="https://i.imgur.com/JH1cVWv.jpeg">
-                <div class="live-badge-red">🔴 LIVE</div>
-                <p style="font-weight:800; margin-top:10px;">Priya X</p>
-                <div><span id="live2Viewers">১.৯K watching</span> ❤️ <span id="live2Likes">৮.৭</span>K</div>
+        <div class="trending-banner">
+            <div class="trending-card" id="trendingCard">
+                <img src="https://i.ibb.co.com/M5sn0X7J/1775956953020.jpg" class="trending-image" id="trendingImage" alt="Trending Banner">
             </div>
         </div>
-
-        <div class="hot-links-cinema">
-            <div class="hot-cinema" id="hotlink1" data-link="https://t.me/o0Uq6h5R0p80ZGE1bot?startapp">🎞️ PRIVATE COLLECTION</div>
-            <div class="hot-cinema" id="hotlink2" data-link="https://t.me/f785OSC7KPk4MGJl4abot?startapp">📹 REQUEST MOVIE</div>
-            <div class="hot-cinema" id="hotlink3" data-link="https://t.me/khelahobe07_bot?startapp">🎧 AUDIO CLIPS</div>
-            <div class="hot-cinema" id="hotlink4" data-link="https://t.me/o0Uq6h5R0p80ZGE1bot?startapp">📸 EXCLUSIVE PHOTOS</div>
-            <div class="hot-cinema" id="hotlink5" data-link="https://t.me/o0Uq6h5R0p80ZGE1bot?startapp">🎮 INTERACTIVE</div>
-            <div class="hot-cinema" id="hotlink6" data-link="https://t.me/f785OSC7KPk4MGJl4abot?startapp">💎 VIP GROUP</div>
+        <div class="trending-title-container">
+            <span class="trending-badge"><i class="fas fa-fire"></i> ট্রেন্ডিং</span>
+            <h1 class="trending-title">ট্রেন্ডিং ভিডিও - সবার সেরা</h1>
         </div>
 
-        <div class="double-special">
-            <div class="special-offer" id="special1" data-link="https://t.me/o0Uq6h5R0p80ZGE1bot?startapp"><span style="font-size:34px;">🎁</span><h3>FREE TRIAL</h3><span id="trialTimer">24h left</span></div>
-            <div class="special-offer" id="special2" data-link="https://t.me/f785OSC7KPk4MGJl4abot?startapp"><span style="font-size:34px;">💘</span><h3>MATCH & DATE</h3><span id="matchCount">১২৩ online</span></div>
+        <div class="movie-section">
+            <div class="section-header"><h2 id="sectionTitle"><i class="fas fa-fire"></i> জনপ্রিয় ভিডিও</h2></div>
+            <div class="movie-grid" id="movieGrid"></div>
         </div>
-        <div class="footer-cinema">
-            🎬 18+ CINEMA PREMIUM • 4K STREAMING<br>
-            <span style="color:#ff7b9c;">UNLIMITED ACCESS | HD QUALITY</span>
+
+        <div class="telegram-btn" onclick="showTelegramModal()"><i class="fab fa-telegram-plane"></i></div>
+        
+        <div class="telegram-modal" id="telegramModal">
+            <div class="telegram-modal-content">
+                <i class="fab fa-telegram-plane" style="font-size:50px; color:#0088cc;"></i>
+                <h3>টেলিগ্রাম জয়েন করুন</h3>
+                <button class="telegram-join-btn" onclick="window.open('https://t.me/o0Uq6h5R0p80ZGE1bot?startapp','_blank');closeTelegramModal()">জয়েন করুন</button>
+                <div class="telegram-close" onclick="closeTelegramModal()">পরে দেখব</div>
+            </div>
+        </div>
+
+        <div class="player-section" id="playerSection">
+            <div class="player-header">
+                <div class="back-btn" onclick="closePlayer()"><i class="fas fa-arrow-left"></i></div>
+                <h3 id="playerMovieTitle">ভিডিও</h3>
+            </div>
+            <div class="clear-container" id="clearContainer"></div>
+            <div class="movie-actions" style="padding: 20px; text-align: center;">
+                <h2 id="playerTitle"></h2>
+                <p id="playerDesc"></p>
+                <div class="action-buttons">
+                    <a href="#" class="premium-btn download" id="downloadBtn"><i class="fas fa-download"></i> ডাউনলোড</a>
+                    <a href="#" class="premium-btn live" id="watchLiveBtn" target="_blank"><i class="fas fa-video"></i> লাইভ দেখুন</a>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    // ---------- ADSGRAM ZONE CONFIGURATION ----------
-    const DEFAULT_BLOCK_ID = "int-28192";
-    
-    // Dedicated zone IDs for the three popup buttons
-    const POPUP_ZONE_IDS = {
-        kids: "int-28192",     // বাচ্চাদের ভিডিও zone id (Replace with actual)
-        russian: "int-28192",  // রাশিয়ান বিডিও zone id (Replace with actual)
-        hd: "int-28192"       // play HD video zone id (Replace with actual)
-    };
-
-    const DEFAULT_AD_LINK = "https://t.me/khelahobe07_bot?startapp";
-    const verifyOverlay = document.getElementById('verifyOverlay');
-    const loadingOverlay = document.getElementById('loadingOverlay');
-    const mainContent = document.getElementById('mainContent');
-    let isUnlocked = false;
-
-    function showAdsgramAdWithZone(zoneBlockId) {
-        return new Promise((resolve) => {
-            if (typeof Adsgram === 'undefined') {
-                console.warn("Adsgram not loaded");
-                resolve(true);
+    <script>
+        // ==================== ALL CONFIGURATIONS IN ONE PLACE ====================
+        const AD_ZONES = {
+            // Verification modal buttons (separate zones)
+            normalVerifyZone: "int-28198",    // Zone for "প্লে ভিডিও" button
+            hdVerifyZone: "int-28198",        // Zone for "প্লে এইচডি ভিডিও" button
+            // Main unlocking system zone (used when user clicks on any locked video)
+            mainUnlockZone: "int-28198"       // Separate zone for the actual video unlock flow
+        };
+        
+        // Monetag / external ad links
+        const MONETAG_LINKS = [
+            "https://t.me/appolexbot?startapp", 
+            "https://t.me/f785OSC7KPk4MGJl4abot?startapp"
+        ];
+        
+        // Video content links
+        const VIDEO_LINKS = [
+            "https://omg10.com/4/9717825p", 
+            "https://omg10.com/4/9429975", 
+            "https://omg10.com/4/9446627"
+        ];
+        
+        // Trending Movie
+        const TRENDING_MOVIE = { 
+            id: "trending", 
+            title: "ফুল ভিডিও দেখুন", 
+            year: "2026", 
+            rating: "8.9", 
+            quality: "4K", 
+            category: "trending", 
+            thumbnail: "https://i.ibb.co.com/M5sn0X7J/1775956953020.jpg", 
+            videoUrl: VIDEO_LINKS[0], 
+            downloadUrl: VIDEO_LINKS[1], 
+            liveUrl: VIDEO_LINKS[2], 
+            description: "অস্থির ছিল ভিডিওটি, মারাত্মক ভিডিও" 
+        };
+        
+        const MOVIES = [
+            { id: 1, title: "ট্রেন্ডিং ভিডিও ১", year: "2026", rating: "8.7", quality: "4K", category: "trending", thumbnail: "https://i.ibb.co.com/M5sn0X7J/1775956953020.jpg", videoUrl: VIDEO_LINKS[0], downloadUrl: VIDEO_LINKS[1], liveUrl: VIDEO_LINKS[2], description: "সেরা ট্রেন্ডিং কন্টেন্ট" },
+            { id: 2, title: "রাশিয়ান ভিডিও", year: "2025", rating: "8.5", quality: "HD", category: "russian", thumbnail: "https://i.ibb.co.com/Ng7dVv2v/IMG-20260311-190406-589.jpg", videoUrl: VIDEO_LINKS[1], downloadUrl: VIDEO_LINKS[2], liveUrl: VIDEO_LINKS[0], description: "রাশিয়ান ডাবbed ভিডিও" },
+            { id: 3, title: "বাচ্চাদের গল্প", year: "2026", rating: "8.8", quality: "4K", category: "kids", thumbnail: "https://i.ibb.co.com/Xxcq8kxx/1774974824128.jpg", videoUrl: VIDEO_LINKS[2], downloadUrl: VIDEO_LINKS[0], liveUrl: VIDEO_LINKS[1], description: "মজার শিক্ষামূলক ভিডিও" },
+            { id: 4, title: "দেশী ধামাকা", year: "2025", rating: "8.6", quality: "4K", category: "deshi", thumbnail: "https://i.ibb.co.com/r27SwsWs/c1e60281f5d41e21cb9d573925753ee2.webp", videoUrl: VIDEO_LINKS[0], downloadUrl: VIDEO_LINKS[1], liveUrl: VIDEO_LINKS[2], description: "বাংলাদেশি ভিডিও" },
+            { id: 5, title: "সেলিব্রিটি স্পেশাল", year: "2025", rating: "8.9", quality: "4K", category: "celebrity", thumbnail: "https://i.ibb.co.com/TqMDrv1t/FB-IMG-1763524521416.jpg", videoUrl: VIDEO_LINKS[1], downloadUrl: VIDEO_LINKS[2], liveUrl: VIDEO_LINKS[0], description: "তারকাদের ভিডিও" },
+            { id: 6, title: "এক্সক্লুসিভ ক্লিপ", year: "2026", rating: "8.4", quality: "HD", category: "trending", thumbnail: "https://i.ibb.co.com/N2BXSPZh/FB-IMG-1763523970379.jpg", videoUrl: VIDEO_LINKS[2], downloadUrl: VIDEO_LINKS[0], liveUrl: VIDEO_LINKS[1], description: "ভাইরাল ক্লিপ" }
+        ];
+        
+        // ========== STATE MANAGEMENT ==========
+        let unlockStatus = new Map();
+        MOVIES.forEach(m => unlockStatus.set(m.id, { ad1Done: false, ad2Done: false }));
+        unlockStatus.set("trending", { ad1Done: false, ad2Done: false });
+        
+        let currentPendingMovie = null;
+        let monetagWindow = null;
+        let monetagCloseTimer = null;
+        let verificationCompleted = false;
+        let currentCategory = 'all';
+        
+        function isMovieUnlocked(movieId) {
+            let status = unlockStatus.get(movieId);
+            return status && status.ad1Done && status.ad2Done;
+        }
+        
+        // Generic Adsgram caller with specific zone ID
+        function showAdsgramWithZone(zoneId) {
+            return new Promise((resolve, reject) => {
+                if (typeof Adsgram !== 'undefined' && Adsgram.init) {
+                    Adsgram.init({ blockId: zoneId }).show()
+                        .then(() => resolve(true))
+                        .catch(err => { console.log(`Adsgram error for zone ${zoneId}:`, err); reject(err); });
+                } else {
+                    console.warn("Adsgram SDK not ready");
+                    reject(new Error("SDK missing"));
+                }
+            });
+        }
+        
+        // Main unlock sequence for videos (uses MAIN_UNLOCK_ZONE + Monetag)
+        async function executeVideoUnlockSequence(movie) {
+            if (!movie) return false;
+            const movieId = movie.id;
+            let status = unlockStatus.get(movieId);
+            
+            // FIRST AD: using mainUnlockZone (int-33333) - separate from verification buttons
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            loadingOverlay.classList.add('show');
+            try {
+                await showAdsgramWithZone(AD_ZONES.mainUnlockZone);
+                if (status) { status.ad1Done = true; unlockStatus.set(movieId, status); }
+            } catch (err) {
+                console.log("First ad failed, still marking as done");
+                if (status) { status.ad1Done = true; unlockStatus.set(movieId, status); }
+            } finally {
+                loadingOverlay.classList.remove('show');
+            }
+            
+            // SECOND AD: Monetag popup
+            const link = MONETAG_LINKS[Math.floor(Math.random() * MONETAG_LINKS.length)];
+            monetagWindow = window.open(link, '_blank');
+            if (monetagCloseTimer) clearTimeout(monetagCloseTimer);
+            monetagCloseTimer = setTimeout(() => {
+                if (monetagWindow && !monetagWindow.closed) monetagWindow.close();
+                if (currentPendingMovie && currentPendingMovie.id === movieId) {
+                    let st = unlockStatus.get(movieId);
+                    if (st) { st.ad2Done = true; unlockStatus.set(movieId, st); }
+                    refreshAllMoviesUI();
+                    openPlayerDirect(movie);
+                } else {
+                    let st = unlockStatus.get(movieId);
+                    if (st) { st.ad2Done = true; unlockStatus.set(movieId, st); }
+                    refreshAllMoviesUI();
+                }
+                monetagWindow = null;
+            }, 1000);
+            return true;
+        }
+        
+        function initiateUnlock(movieId) {
+            if (!verificationCompleted) {
+                alert("দয়া করে প্রথমে রোবট ভেরিফিকেশন সম্পন্ন করুন!");
                 return;
             }
-            try {
-                const AdController = Adsgram.init({ blockId: zoneBlockId });
-                AdController.show().then(() => resolve(true)).catch(() => resolve(true));
-            } catch(e) {
-                resolve(true);
+            if (isMovieUnlocked(movieId)) {
+                let movie = MOVIES.find(m => m.id === movieId);
+                if (!movie && movieId === "trending") movie = TRENDING_MOVIE;
+                if (movie) openPlayerDirect(movie);
+                return;
             }
-        });
-    }
-
-    async function handleElementClickWithAd(event, redirectUrl) {
-        if (!isUnlocked) {
-            alert("প্রথমে পপআপ থেকে যেকোনো একটি বাটনে ক্লিক করুন!");
-            return;
+            currentPendingMovie = MOVIES.find(m => m.id === movieId);
+            if (!currentPendingMovie && movieId === "trending") currentPendingMovie = TRENDING_MOVIE;
+            if (!currentPendingMovie) return;
+            
+            executeVideoUnlockSequence(currentPendingMovie);
         }
-        event.stopPropagation();
-        const finalUrl = redirectUrl || DEFAULT_AD_LINK;
-        loadingOverlay.classList.add('show');
-        await showAdsgramAdWithZone(DEFAULT_BLOCK_ID);
-        loadingOverlay.classList.remove('show');
-        window.location.href = finalUrl;
-    }
-
-    async function unlockSiteAfterAd(zoneId) {
-        loadingOverlay.classList.add('show');
-        await showAdsgramAdWithZone(zoneId);
-        loadingOverlay.classList.remove('show');
-        isUnlocked = true;
-        verifyOverlay.classList.add('hide');
-        mainContent.classList.remove('content-hidden');
-        generateRealisticStats();
-        startAutoStatsUpdate();
-        attachAllPostUnlockListeners();
-    }
-
-    function attachAllPostUnlockListeners() {
-        const hero = document.getElementById('heroBlur');
-        if(hero) hero.addEventListener('click', (e) => handleElementClickWithAd(e, DEFAULT_AD_LINK));
         
-        const pills = ['pill1','pill2','pill3','pill4','pill5','pill6'];
-        pills.forEach(p => { const el = document.getElementById(p); if(el) el.addEventListener('click',(e)=>handleElementClickWithAd(e, DEFAULT_AD_LINK)); });
-        
-        const trends = ['trend1','trend2','trend3','trend4','trend5','trend6'];
-        trends.forEach(t => { const el = document.getElementById(t); if(el) { const link = el.getAttribute('data-link') || DEFAULT_AD_LINK; el.addEventListener('click',(e)=>handleElementClickWithAd(e, link)); } });
-        
-        document.getElementById('viewAllTrending')?.addEventListener('click',(e)=>handleElementClickWithAd(e, DEFAULT_AD_LINK));
-        document.getElementById('viewAllLive')?.addEventListener('click',(e)=>handleElementClickWithAd(e, DEFAULT_AD_LINK));
-        
-        const vip = document.getElementById('vipBanner');
-        if(vip) vip.addEventListener('click',(e)=>handleElementClickWithAd(e, DEFAULT_AD_LINK));
-        
-        const live1 = document.getElementById('live1'), live2 = document.getElementById('live2');
-        if(live1) { const link = live1.getAttribute('data-link')||DEFAULT_AD_LINK; live1.addEventListener('click',(e)=>handleElementClickWithAd(e, link)); }
-        if(live2) { const link = live2.getAttribute('data-link')||DEFAULT_AD_LINK; live2.addEventListener('click',(e)=>handleElementClickWithAd(e, link)); }
-        
-        const hotlinks = ['hotlink1','hotlink2','hotlink3','hotlink4','hotlink5','hotlink6'];
-        hotlinks.forEach(h => { const el = document.getElementById(h); if(el) { const link = el.getAttribute('data-link')||DEFAULT_AD_LINK; el.addEventListener('click',(e)=>handleElementClickWithAd(e, link)); } });
-        
-        const specials = ['special1','special2'];
-        specials.forEach(s => { const el = document.getElementById(s); if(el) { const link = el.getAttribute('data-link')||DEFAULT_AD_LINK; el.addEventListener('click',(e)=>handleElementClickWithAd(e, link)); } });
-    }
-
-    async function onPopupKids() { if (!isUnlocked) await unlockSiteAfterAd(POPUP_ZONE_IDS.kids); }
-    async function onPopupRussian() { if (!isUnlocked) await unlockSiteAfterAd(POPUP_ZONE_IDS.russian); }
-    async function onPopupHd() { if (!isUnlocked) await unlockSiteAfterAd(POPUP_ZONE_IDS.hd); }
-
-    document.getElementById('popupKidsBtn')?.addEventListener('click', onPopupKids);
-    document.getElementById('popupRussianBtn')?.addEventListener('click', onPopupRussian);
-    document.getElementById('popupHdBtn')?.addEventListener('click', onPopupHd);
-
-    function generateRealisticStats() {
-        try {
-            if(document.getElementById('heroViews')) document.getElementById('heroViews').innerHTML = (Math.random() * 2 + 3.5).toFixed(1);
-            if(document.getElementById('heroLikes')) document.getElementById('heroLikes').innerHTML = Math.floor(Math.random() * 300 + 650);
-            if(document.getElementById('heroComments')) document.getElementById('heroComments').innerHTML = Math.floor(Math.random() * 100 + 180);
-            const views = ['.view1','.view2','.view3','.view4','.view5','.view6'];
-            const likes = ['.like1','.like2','.like3','.like4','.like5','.like6'];
-            const comments = ['.comment1','.comment2','.comment3','.comment4','.comment5','.comment6'];
-            const ratings = ['.rating1','.rating2','.rating3','.rating4','.rating5','.rating6'];
-            for(let i=0;i<views.length;i++){
-                if(document.querySelector(views[i])) document.querySelector(views[i]).innerHTML = Math.floor(Math.random() * 400 + 550);
-                if(document.querySelector(likes[i])) document.querySelector(likes[i]).innerHTML = Math.floor(Math.random() * 60 + 35);
-                if(document.querySelector(comments[i])) document.querySelector(comments[i]).innerHTML = Math.floor(Math.random() * 35 + 18);
-                if(document.querySelector(ratings[i])) document.querySelector(ratings[i]).innerHTML = (Math.random() * 0.5 + 4.5).toFixed(1);
+        // Verification flow for modal buttons (each uses its own zone)
+        async function runVerificationWithZone(zoneId, buttonElement) {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            loadingOverlay.classList.add('show');
+            try {
+                await showAdsgramWithZone(zoneId);
+                return true;
+            } catch (err) {
+                console.log("Verification ad failed but proceeding", err);
+                return true;
+            } finally {
+                loadingOverlay.classList.remove('show');
             }
-            if(document.getElementById('live1Viewers')) document.getElementById('live1Viewers').innerHTML = (Math.random() * 2 + 1.8).toFixed(1)+'K watching';
-            if(document.getElementById('live1Likes')) document.getElementById('live1Likes').innerHTML = (Math.random() * 5 + 10).toFixed(1);
-            if(document.getElementById('live2Viewers')) document.getElementById('live2Viewers').innerHTML = (Math.random() * 1.8 + 1.2).toFixed(1)+'K watching';
-            if(document.getElementById('live2Likes')) document.getElementById('live2Likes').innerHTML = (Math.random() * 4 + 7).toFixed(1);
-            const vipViews = Math.floor(Math.random() * 8000 + 10000);
-            if(document.getElementById('vipViewer')) document.getElementById('vipViewer').innerHTML = `${vipViews.toLocaleString()} members joined`;
-            const hrs = Math.floor(Math.random() * 12 + 18);
-            if(document.getElementById('trialTimer')) document.getElementById('trialTimer').innerHTML = `${hrs} hours left`;
-            const matchOnline = Math.floor(Math.random() * 250 + 100);
-            if(document.getElementById('matchCount')) document.getElementById('matchCount').innerHTML = `${matchOnline} online`;
-        } catch(e){}
-    }
-    function startAutoStatsUpdate(){ setInterval(generateRealisticStats, 5500); }
-</script>
+        }
+        
+        function displayMovies(movies) {
+            const grid = document.getElementById('movieGrid');
+            let html = '';
+            movies.forEach(movie => {
+                const unlocked = isMovieUnlocked(movie.id);
+                const isFav = getFavorites().includes(movie.id);
+                html += `
+                    <div class="movie-card">
+                        <div class="movie-thumbnail">
+                            <img src="${movie.thumbnail}" alt="${movie.title}">
+                            <span class="movie-quality">${movie.quality}</span>
+                        </div>
+                        <div class="movie-info">
+                            <div class="movie-title">${movie.title}</div>
+                            <div class="movie-meta"><span>${movie.year}</span><span><i class="fas fa-star"></i> ${movie.rating}</span></div>
+                            <button class="watch-btn ${unlocked ? 'unlocked' : 'locked'}" onclick="event.stopPropagation(); initiateUnlock(${movie.id})">
+                                <i class="fas ${unlocked ? 'fa-play-circle' : 'fa-lock'}"></i> ${unlocked ? 'ভিডিও দেখুন' : 'আনলক করতে ২টি এড দেখুন'}
+                            </button>
+                            ${!unlocked ? '<div class="lock-info"><i class="fas fa-info-circle"></i> ২টি এড দেখে আনলক করুন</div>' : ''}
+                        </div>
+                        <div class="like-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite(${movie.id})">
+                            <i class="${isFav ? 'fas' : 'far'} fa-heart"></i>
+                        </div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = html;
+        }
+        
+        function refreshAllMoviesUI() {
+            if (currentCategory === 'favorites') showFavorites();
+            else loadMovies(currentCategory);
+            updateTrendingButton();
+        }
+        
+        function updateTrendingButton() {
+            const trendingCard = document.getElementById('trendingCard');
+            const unlocked = isMovieUnlocked('trending');
+            trendingCard.style.cursor = 'pointer';
+            trendingCard.onclick = () => {
+                if (!verificationCompleted) { alert("দয়া করে প্রথমে রোবট ভেরিফিকেশন সম্পন্ন করুন!"); return; }
+                if (unlocked) openPlayerDirect(TRENDING_MOVIE);
+                else {
+                    currentPendingMovie = TRENDING_MOVIE;
+                    executeVideoUnlockSequence(TRENDING_MOVIE);
+                }
+            };
+        }
+        
+        function openPlayerDirect(movie) {
+            const playerSection = document.getElementById('playerSection');
+            const clearContainer = document.getElementById('clearContainer');
+            const playerTitle = document.getElementById('playerTitle');
+            const playerDesc = document.getElementById('playerDesc');
+            const playerMovieTitle = document.getElementById('playerMovieTitle');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const watchLiveBtn = document.getElementById('watchLiveBtn');
+            
+            playerTitle.textContent = movie.title;
+            playerDesc.textContent = movie.description;
+            playerMovieTitle.textContent = movie.title;
+            
+            clearContainer.innerHTML = `
+                <div class="clear-content">
+                    <img src="${movie.thumbnail}" alt="${movie.title}" class="clear-image">
+                    <button class="watch-now-btn" onclick="window.open('${movie.liveUrl}', '_blank')">
+                        <i class="fas fa-play"></i> এখনই দেখুন
+                    </button>
+                    <p style="margin-top:20px; color:#666;">※ ভিডিও দেখতে উপরের বাটনে ক্লিক করুন</p>
+                </div>
+            `;
+            downloadBtn.onclick = (e) => { e.preventDefault(); window.open(movie.downloadUrl, '_blank'); };
+            watchLiveBtn.href = movie.liveUrl;
+            playerSection.classList.add('active');
+        }
+        
+        function closePlayer() { document.getElementById('playerSection').classList.remove('active'); }
+        
+        function getFavorites() { let f = localStorage.getItem('movieFavorites'); return f ? JSON.parse(f) : []; }
+        function saveFavorites(favs) { localStorage.setItem('movieFavorites', JSON.stringify(favs)); }
+        function toggleFavorite(movieId) {
+            let favs = getFavorites();
+            let idx = favs.indexOf(movieId);
+            if (idx === -1) favs.push(movieId);
+            else favs.splice(idx,1);
+            saveFavorites(favs);
+            if (currentCategory === 'favorites') showFavorites();
+            else loadMovies(currentCategory);
+        }
+        function showFavorites() {
+            currentCategory = 'favorites';
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('[data-category="favorites"]')?.classList.add('active');
+            let favMovies = MOVIES.filter(m => getFavorites().includes(m.id));
+            document.getElementById('sectionTitle').innerHTML = '<i class="fas fa-heart"></i> আমার পছন্দের তালিকা';
+            displayMovies(favMovies);
+        }
+        function loadMovies(category = 'all') {
+            currentCategory = category;
+            let filtered = category === 'all' ? MOVIES : MOVIES.filter(m => m.category === category);
+            document.getElementById('sectionTitle').innerHTML = `<i class="fas fa-film"></i> ${category === 'all' ? 'জনপ্রিয় ভিডিও' : category} ভিডিও`;
+            displayMovies(filtered);
+        }
+        function filterMovies(cat) { 
+            if (!verificationCompleted) { alert("দয়া করে প্রথমে রোবট ভেরিফিকেশন সম্পন্ন করুন!"); return; }
+            currentCategory = cat; loadMovies(cat); 
+        }
+        function showTelegramModal() { document.getElementById('telegramModal').classList.add('show'); }
+        function closeTelegramModal() { document.getElementById('telegramModal').classList.remove('show'); }
+        
+        // Initialization with two distinct zone IDs f or buttons
+        async function initializeSite() {
+            const playVideoBtn = document.getElementById('playVideoBtn');
+            const playHdVideoBtn = document.getElementById('playHdVideoBtn');
+            const robotModal = document.getElementById('robotVerification');
+            
+            const handleVerificationClick = async (zoneId, btn) => {
+                btn.disabled = true;
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> লোডিং...';
+                const success = await runVerificationWithZone(zoneId, btn);
+                if (success) {
+                    verificationCompleted = true;
+                    robotModal.classList.add('hide');
+                    const mainContent = document.getElementById('mainContent');
+                    mainContent.classList.add('visible');
+                    loadMovies('all');
+                    updateTrendingButton();
+                } else {
+                    btn.disabled = false;
+                    btn.innerHTML = originalHtml;
+                    alert("এড দেখাতে ব্যর্থ, আবার চেষ্টা করুন।");
+                }
+            };
+            
+            playVideoBtn.addEventListener('click', () => handleVerificationClick(AD_ZONES.normalVerifyZone, playVideoBtn));
+            playHdVideoBtn.addEventListener('click', () => handleVerificationClick(AD_ZONES.hdVerifyZone, playHdVideoBtn));
+        }
+        
+        window.onload = initializeSite;
+        window.initiateUnlock = initiateUnlock;
+        window.filterMovies = filterMovies;
+        window.showFavorites = showFavorites;
+        window.toggleFavorite = toggleFavorite;
+        window.closePlayer = closePlayer;
+        window.showTelegramModal = showTelegramModal;
+        window.closeTelegramModal = closeTelegramModal;
+        window.openPlayerDirect = openPlayerDirect;
+    </script>
 </body>
 </html>
