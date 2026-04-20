@@ -1,421 +1,729 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
+
+    
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Smart Money Pro | Earn USDT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>🎬 VIDEO PREMIUM • 4K STREAM</title>
     
-    <!-- Telegram & Ad SDKs -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>  
+    <!-- Telegram WebApp & Adsgram Script -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
-    <script src='//libtl.com/sdk.js' data-zone='9730885' data-sdk='show_9730885'></script>
-    <script src='//libtl.com/sdk.js' data-zone='9500387' data-sdk='show_9500387'></script>
-    <script src='//libtl.com/sdk.js' data-zone='9715370' data-sdk='show_9715370'></script>
-    
-    <!-- Tailwind + Fonts + Icons -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        * { font-family: 'Inter', sans-serif; }
-        
-        /* PURE DARK MODE ONLY - No light mode */
-        body { 
-            background: #0f172a; 
-            color: #f1f5f9; 
-            padding-bottom: 70px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
-        .card-bg {
-            background: #1e293b;
-            border: 1px solid #334155;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            transition: all 0.2s;
+
+        body {
+            background: #0a0a0f;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            color: #f0f0f0;
+            padding: 0;
+            min-height: 100vh;
         }
-        
-        .input-field {
-            background: #334155;
-            border: 1px solid #475569;
-            color: #f1f5f9;
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&display=swap');
+
+        .app-container {
+            max-width: 560px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #0e0e16 0%, #07070c 100%);
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
         }
-        
-        .input-field::placeholder {
-            color: #94a3b8;
+
+        /* --- VERIFICATION OVERLAY (POPUP STYLE WITH 3 BUTTONS - UPDATED DESIGN) --- */
+        .verify-overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 30% 20%, #0f0c1f, #020105);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            backdrop-filter: blur(16px);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
-        
-        .bottom-nav {
-            background: #1e293b;
-            border-color: #334155;
+        .verify-overlay.hide {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
         }
-        
-        .btn-accent {
-            background: #f97316;
-            color: white;
-            font-weight: 600;
-            transition: transform 0.1s ease;
+        .cinema-ticket {
+            background: linear-gradient(145deg, #1a1c2e, #0c0d1a);
+            border-radius: 64px;
+            padding: 40px 28px;
+            text-align: center;
+            max-width: 400px;
+            width: 88%;
+            border: 1px solid rgba(255, 100, 180, 0.6);
+            box-shadow: 0 0 60px rgba(255, 60, 120, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
         }
-        
-        .btn-accent:active { transform: scale(0.97); }
-        
-        .main-page, .sub-page { display: none; }
-        .main-page.active, .sub-page.active { display: block; animation: fade 0.25s ease; }
-        
-        @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
-        
-        .bottom-nav a.active { color: #f97316; }
-        
-        .notification-dot {
-            position: absolute; top: -2px; right: -2px; width: 10px; height: 10px;
-            background: #ef4444; border-radius: 50%; display: none;
+        .cinema-ticket::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,80,140,0.15) 0%, transparent 70%);
+            pointer-events: none;
         }
-        
-        .cooldown-timer { font-size: 12px; color: #facc15; margin-left: 6px; }
-        .ad-zone-indicator { background: rgba(0,0,0,0.3); border-radius: 20px; padding: 2px 8px; font-size: 10px; }
-        
-        /* Header styling */
-        header {
-            background: #1e293b;
-            border-bottom: 1px solid #334155;
+        .cinema-ticket::after {
+            content: "🎟️";
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            font-size: 55px;
+            opacity: 0.2;
+            transform: rotate(-15deg);
         }
-        
-        header h1, header i {
-            color: #f1f5f9;
+        .movie-icon {
+            font-size: 72px;
+            filter: drop-shadow(0 0 15px #ff3388);
+            margin-bottom: 8px;
+            animation: floatIcon 2s ease-in-out infinite;
         }
-        
-        /* Text colors for dark mode */
-        .text-slate-800 { color: #f1f5f9 !important; }
-        .text-gray-600 { color: #cbd5e1 !important; }
-        .text-gray-500 { color: #94a3b8 !important; }
-        .text-gray-700 { color: #cbd5e1 !important; }
-        
-        /* Gradient buttons always have white text */
-        .bg-gradient-to-r, .bg-orange-500, .bg-purple-600, .bg-cyan-600, .bg-sky-500 {
-            color: white !important;
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
         }
-        
-        /* White background buttons with colored text */
-        .bg-white.text-orange-600 {
-            background: white !important;
-            color: #f97316 !important;
+        .cinema-ticket h2 {
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FFD89B, #FF6B8B, #C86DD7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
         }
-        .bg-white.text-purple-700 {
-            background: white !important;
-            color: #7c3aed !important;
+        .popup-desc {
+            color: #ccc;
+            margin: 12px 0 20px;
+            font-size: 14px;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
-        .bg-white.text-blue-700 {
-            background: white !important;
-            color: #2563eb !important;
+        /* Three buttons inside popup - UPDATED LUXURY STYLE */
+        .popup-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 10px 0 8px;
         }
-        .bg-white.text-blue-600 {
-            background: white !important;
-            color: #2563eb !important;
+        .popup-action-btn {
+            background: linear-gradient(115deg, #1f1b2e, #141027);
+            border: none;
+            padding: 15px 10px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 18px;
+            color: #fff0f5;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 0 rgba(0,0,0,0.3);
+            border-bottom: 2px solid rgba(255,255,255,0.15);
         }
-        
-        /* Green button styling */
-        .bg-green-600 {
-            background: #16a34a !important;
-            color: white !important;
+        /* Individual button gradient variants */
+        .popup-action-btn:nth-child(1) {
+            background: linear-gradient(115deg, #2a1a3a, #1a0f2a);
+            border-left: 3px solid #FFB347;
+            border-right: 3px solid #FF6B8B;
         }
-        .bg-green-600:hover {
-            background: #15803d !important;
+        .popup-action-btn:nth-child(2) {
+            background: linear-gradient(115deg, #1e2a3a, #121c2a);
+            border-left: 3px solid #FF6B8B;
+            border-right: 3px solid #C86DD7;
         }
-        
-        /* Red button for cooldown */
-        .bg-red-600 {
-            background: #dc2626 !important;
-            color: white !important;
+        .popup-action-btn:nth-child(3) {
+            background: linear-gradient(115deg, #2a1e2e, #181026);
+            border-left: 3px solid #C86DD7;
+            border-right: 3px solid #FFB347;
         }
-        
-        /* Modal styling */
-        #custom-alert > div {
-            background: #1e293b;
-            color: #f1f5f9;
+        .popup-action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
         }
-        
-        /* Remove dark mode toggle button */
-        #dark-mode-toggle {
+        .popup-action-btn:hover::before {
+            left: 100%;
+        }
+        .popup-action-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 0 rgba(0,0,0,0.3);
+        }
+        .popup-action-btn span {
+            font-size: 28px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: #000000cc;
+            backdrop-filter: blur(16px);
+            z-index: 9999;
             display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
         }
-        
-        /* Support button removed - no floating button */
-        
-        /* Select dropdown styling */
-        select.input-field option {
-            background: #1e293b;
-            color: #f1f5f9;
+        .loading-overlay.show { display: flex; }
+        .film-spinner {
+            width: 70px;
+            height: 70px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23ff6b8b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v16"/><path d="M16 4v16"/><path d="M2 8h4"/><path d="M2 12h4"/><path d="M2 16h4"/><path d="M18 8h4"/><path d="M18 12h4"/><path d="M18 16h4"/></svg>') no-repeat center;
+            background-size: contain;
+            animation: spinReel 1.2s infinite;
+        }
+        @keyframes spinReel { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .content-hidden { display: none; }
+
+        /* HEADER - STREAMING STYLE UPDATED */
+        .stream-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 20px 12px;
+            background: rgba(8, 8, 16, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 70, 120, 0.4);
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+        .logo-premium {
+            font-weight: 900;
+            font-size: 20px;
+            background: linear-gradient(135deg, #F9D976, #F39F86, #FF6B8B);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+        .badge-4k {
+            background: rgba(0,0,0,0.6);
+            border-radius: 30px;
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 800;
+            border: 1px solid #ff6b8b;
+            color: #ff9eb5;
+        }
+
+        /* Hero spotlight */
+        .featured-movie {
+            margin: 18px 20px 24px;
+            border-radius: 36px;
+            overflow: hidden;
+            background: #11101c;
+            border: 1px solid rgba(255, 80, 120, 0.6);
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 20px 30px -12px black;
+        }
+        .featured-img {
+            position: relative;
+            height: 240px;
+            overflow: hidden;
+        }
+        .featured-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(14px) brightness(0.75);
+            transition: 0.3s;
+        }
+        .featured-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .play-circle {
+            font-size: 70px;
+            filter: drop-shadow(0 0 18px #ff3b6f);
+            background: rgba(0,0,0,0.5);
+            border-radius: 100px;
+            padding: 10px;
+            backdrop-filter: blur(5px);
+        }
+        .featured-title {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-top: 12px;
+            background: linear-gradient(135deg, #FFF, #FFB6C1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .movie-meta {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 18px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(12px);
+            font-weight: 600;
+            font-size: 13px;
+            color: #ffd0dd;
+        }
+
+        .cat-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 8px 20px 20px;
+            scrollbar-width: thin;
+        }
+        .cat-item {
+            background: rgba(30, 28, 45, 0.8);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+            padding: 10px 24px;
+            font-weight: 700;
+            font-size: 14px;
+            white-space: nowrap;
+            border: 1px solid #ff5f8e;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .section-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin: 28px 20px 16px;
+        }
+        .section-row h3 {
+            font-size: 20px;
+            font-weight: 800;
+            border-left: 5px solid #ff5f8e;
+            padding-left: 12px;
+        }
+        .see-all {
+            font-size: 13px;
+            color: #ff9bb5;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 0 20px;
+        }
+        .movie-card {
+            background: rgba(18, 17, 28, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 100, 140, 0.3);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .movie-card:active { transform: scale(0.97); background: #201e34; }
+        .card-media {
+            position: relative;
+            height: 140px;
+        }
+        .card-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(12px);
+        }
+        .card-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(145deg, #ff3366, #ff884d);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+        .card-info {
+            padding: 14px 12px 12px;
+        }
+        .card-title {
+            font-weight: 800;
+            display: flex;
+            justify-content: space-between;
+        }
+        .card-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #bbaad0;
+        }
+        .vip-pass {
+            background: linear-gradient(115deg, #1a142f, #0f0b1f);
+            margin: 32px 20px;
+            border-radius: 48px;
+            padding: 24px 20px;
+            border: 2px solid #ffbc6e;
+            cursor: pointer;
+            text-align: center;
+        }
+        .pass-glow {
+            font-size: 34px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FEE190, #FFB347, #FF6B8B);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .live-row {
+            display: flex;
+            gap: 18px;
+            margin: 0 20px 30px;
+        }
+        .live-card {
+            flex: 1;
+            background: #131129;
+            border-radius: 32px;
+            padding: 12px;
+            border: 1px solid #ff678a;
+            cursor: pointer;
+        }
+        .live-preview {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 24px;
+            filter: blur(9px);
+        }
+        .live-badge-red {
+            background: #e02b4b;
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 800;
+            margin-top: 8px;
+        }
+        .hot-links-cinema {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin: 30px 20px 25px;
+        }
+        .hot-cinema {
+            flex: 1 1 42%;
+            background: #15122a;
+            padding: 16px 8px;
+            border-radius: 44px;
+            text-align: center;
+            font-weight: 700;
+            border-bottom: 4px solid #ff7b9c;
+            cursor: pointer;
+        }
+        .double-special {
+            display: flex;
+            gap: 18px;
+            margin: 20px 20px 30px;
+        }
+        .special-offer {
+            flex: 1;
+            background: #120f22;
+            border-radius: 36px;
+            padding: 20px 12px;
+            text-align: center;
+            border: 1px solid #ff7b9c;
+            cursor: pointer;
+        }
+        .footer-cinema {
+            text-align: center;
+            padding: 28px;
+            background: #0a0914;
+            border-top: 1px solid #ff608030;
+            font-size: 11px;
+            margin-top: 20px;
         }
     </style>
 </head>
-<body class="max-w-md mx-auto relative">
-
-    <!-- Loader -->
-    <div id="loader" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-        <div class="animate-spin rounded-full h-12 w-12 border-4 border-orange-500 border-t-transparent"></div>
-    </div>
-
-    <!-- Main Container -->
-    <div id="app-container" class="min-h-screen main-page active">
-        <header class="sticky top-0 z-10 flex justify-between items-center p-4 bg-slate-800/95 backdrop-blur-md border-b border-gray-700">
-            <h1 class="text-xl font-bold text-white">Smart Money Pro</h1>
-            <div class="flex gap-4 items-center">
-                <!-- Dark mode toggle hidden - permanent dark mode -->
-                <button id="dark-mode-toggle" style="display: none;"></button>
-                <div id="notification-bell" class="relative cursor-pointer">
-                    <i data-lucide="bell" class="w-5 h-5 text-white"></i>
-                    <div id="notification-dot" class="notification-dot"></div>
+<body>
+<div class="app-container">
+    <!-- POPUP OVERLAY: 3 BUTTONS DIRECTLY INSIDE FIRST VERIFICATION - UPDATED STYLE -->
+    <div class="verify-overlay" id="verifyOverlay">
+        <div class="cinema-ticket">
+            <div class="movie-icon">🎬</div>
+            <h2>UNLOCK PREMIUM</h2>
+            <p class="popup-desc">✨ বিডিও জগতে প্রবেশ করতে যেকোনো একটি বেছে নিন ✨<br>একটি ভিডিও দেখুন এবং সম্পূর্ণ অ্যাক্সেস পান</p>
+            <div class="popup-buttons">
+                <div class="popup-action-btn" id="popupKidsBtn">
+                    <span>🥵</span> বাচ্চাদের ভিডিও
                 </div>
-                <i data-lucide="user" class="w-5 h-5 cursor-pointer text-white" onclick="navigateTo('profile-page')"></i>
-            </div>
-        </header>
-
-        <main>
-            <!-- HOME PAGE -->
-            <div id="home-page" class="p-4 space-y-6 sub-page active">
-                <div class="card-bg p-5 rounded-2xl flex justify-between items-center">
-                    <div>
-                        <p class="text-sm text-gray-400">Your Balance</p>
-                        <p class="text-3xl font-black text-white">$<span id="coin-balance">0.00</span> USDT</p>
-                    </div>
-                    <button id="home-withdraw-btn" class="bg-orange-500 text-white font-semibold px-5 py-2 rounded-xl shadow-md hover:bg-orange-600 transition">Withdraw</button>
+                <div class="popup-action-btn" id="popupRussianBtn">
+                    <span>🔥</span> রাশিয়ান বিডিও
                 </div>
-
-                <section>
-                    <div class="flex justify-between items-center mb-2">
-                        <div>
-                            <h2 class="text-lg font-bold text-white">Daily Tasks</h2>
-                            <p class="text-xs text-gray-400">Complete tasks & earn USDT</p>
-                        </div>
-                        <p class="text-xs text-gray-400">Ads left: <span id="ads-left-count">0/3</span></p>
-                    </div>
-                    <div class="space-y-3">
-                        <!-- AdsGram Ad Button -->
-                        <div class="bg-gradient-to-r from-amber-500 to-orange-600 p-4 rounded-xl flex justify-between items-center text-white shadow-md">
-                            <div class="flex gap-3 items-center">
-                                <span class="text-3xl">🎬</span>
-                                <div>
-                                    <h3 class="font-bold">Watch AdsGram Ad</h3>
-                                    <p class="text-xs text-white/90">+0.05 USDT</p>
-                                </div>
-                            </div>
-                            <button id="ad-claim-btn" class="bg-white text-orange-600 font-bold px-5 py-2 rounded-xl text-sm shadow hover:bg-gray-100 transition">Claim</button>
-                        </div>
-                        
-                        <!-- Monetag Multi-Zone Ad Button -->
-                        <div class="bg-gradient-to-r from-purple-600 to-indigo-700 p-4 rounded-xl flex justify-between items-center text-white shadow-md">
-                            <div class="flex gap-3 items-center">
-                                <span class="text-3xl">🎯</span>
-                                <div>
-                                    <h3 class="font-bold">Watch Monetag Ad</h3>
-                                    <p class="text-xs text-white/90">+0.05 USDT <span id="zone-indicator" class="ad-zone-indicator ml-1 bg-black/30">Zone 1/3</span></p>
-                                </div>
-                            </div>
-                            <button id="monetag-ad-btn" class="bg-white text-purple-700 font-bold px-5 py-2 rounded-xl text-sm shadow hover:bg-gray-100 transition">Claim</button>
-                        </div>
-                        
-                        <!-- Daily Jobs -->
-                        <div class="bg-gradient-to-r from-cyan-600 to-blue-700 p-4 rounded-xl flex justify-between items-center text-white shadow-md">
-                            <div class="flex gap-3"><span class="text-3xl">💼</span><div><h3 class="font-bold">Daily Jobs</h3><p class="text-xs text-white/90">Watch & earn 0.05 USDT each</p></div></div>
-                            <button class="bg-white text-blue-700 font-bold px-5 py-2 rounded-xl text-sm shadow hover:bg-gray-100 transition" onclick="navigateTo('daily-jobs-page')">Start</button>
-                        </div>
-                        
-                        <!-- Telegram Channel -->
-                        <div class="bg-gradient-to-r from-sky-500 to-blue-600 p-4 rounded-xl flex justify-between items-center text-white shadow-md">
-                            <div class="flex gap-3"><span class="text-3xl">📢</span><div><h3 class="font-bold">Join Official Channel</h3><p class="text-xs text-white/90">Get latest updates</p></div></div>
-                            <button id="telegram-channel-btn" class="bg-white text-blue-600 font-bold px-5 py-2 rounded-xl text-sm shadow hover:bg-gray-100 transition">Join</button>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- WALLET PAGE -->
-            <div id="wallet-page" class="p-4 space-y-5 sub-page">
-                <h2 class="text-xl font-bold text-center text-white">My Wallet</h2>
-                <div class="card-bg p-5 rounded-2xl">
-                    <h3 class="font-semibold mb-2 text-white">Withdraw Earnings</h3>
-                    <p class="text-sm text-gray-300">Current Balance: <span class="font-bold text-orange-400">$<span id="wallet-coin-balance">0.00</span> USDT</span></p>
-                    <p class="text-sm text-gray-400 mb-3">Min withdrawal: <span id="min-withdrawal-info">20</span> USDT</p>
-                    <input id="withdraw-amount" type="number" placeholder="Enter amount (USDT)" class="w-full p-3 rounded-xl input-field mb-3">
-                    <select id="withdraw-method" class="w-full p-3 rounded-xl input-field mb-3">
-                        <option value="">Select method</option>
-                        <option value="Bkash">Bkash</option>
-                        <option value="Nagad">Nagad</option>
-                        <option value="Rocket">Rocket</option>
-                        <option value="Bank">Bank Transfer</option>
-                    </select>
-                    <div id="payment-details-container"></div>
-                    <button id="withdraw-btn" class="w-full p-3 rounded-xl btn-accent mt-3">Request Withdrawal</button>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-2 text-white">Withdrawal History</h3>
-                    <div id="withdrawal-history-list" class="space-y-2"></div>
+                <div class="popup-action-btn" id="popupHdBtn">
+                    <span>🎬</span> play HD video
                 </div>
             </div>
-
-            <!-- PROFILE PAGE -->
-            <div id="profile-page" class="p-4 space-y-5 sub-page">
-                <h2 class="text-xl font-bold text-center text-white">Profile</h2>
-                <div class="flex flex-col items-center">
-                    <img id="profile-photo" src="https://placehold.co/100x100/f97316/white?text=U" class="rounded-full w-24 h-24 border-2 border-orange-400">
-                    <h2 id="profile-name" class="text-xl font-bold mt-2 text-white">User</h2>
-                    <p id="profile-username" class="text-gray-400">@username</p>
-                </div>
-                <div class="card-bg p-4 rounded-2xl">
-                    <h3 class="font-semibold mb-2 text-white">Account Info</h3>
-                    <div class="flex justify-between text-sm"><span class="text-gray-300">Joined via:</span><span id="joined-via" class="text-white">Telegram</span></div>
-                    <div class="flex justify-between text-sm mt-1"><span class="text-gray-300">User ID:</span><span id="profile-user-id" class="text-white">---</span></div>
-                </div>
-                <div id="admin-access" class="hidden">
-                    <button onclick="navigateTo('admin-panel')" class="w-full p-3 rounded-xl bg-purple-700 text-white font-bold">Admin Panel</button>
-                </div>
-            </div>
-            
-            <!-- NOTIFICATIONS -->
-            <div id="notifications-page" class="p-4 space-y-4 sub-page">
-                <h2 class="text-xl font-bold text-center text-white">Inbox</h2>
-                <div id="notifications-list" class="space-y-3"></div>
-            </div>
-
-            <!-- DAILY JOBS (20 jobs) -->
-            <div id="daily-jobs-page" class="p-4 sub-page">
-                <div class="flex items-center gap-3 mb-4">
-                    <button onclick="navigateTo('home-page')" class="text-gray-300"><i data-lucide="arrow-left" class="w-5 h-5"></i></button>
-                    <h2 class="text-xl font-bold text-white">Daily Jobs</h2>
-                </div>
-                <div class="card-bg p-4 rounded-xl text-center mb-4">
-                    <p class="text-sm text-gray-300">Each job: watch ad for 15 sec → earn <strong class="text-orange-400">0.05 USDT</strong> (cooldown 8h)</p>
-                </div>
-                <div id="daily-jobs-container" class="space-y-3"></div>
-            </div>
-
-            <!-- ADMIN PANEL -->
-            <div id="admin-panel" class="p-4 space-y-5 sub-page">
-                <div class="flex items-center gap-3"><button onclick="navigateTo('profile-page')" class="text-gray-300"><i data-lucide="arrow-left" class="w-5 h-5"></i></button><h2 class="text-xl font-bold text-white">Admin Panel</h2></div>
-                <div class="card-bg p-4 rounded-2xl">
-                    <h3 class="font-semibold mb-2 text-white">Send Bonus to All</h3>
-                    <input id="bonus-amount" type="number" placeholder="Amount (USDT)" class="w-full p-3 rounded-xl input-field mb-3">
-                    <button id="send-bonus-btn" class="w-full bg-green-600 text-white p-3 rounded-xl font-bold hover:bg-green-700 transition">Distribute Bonus</button>
-                </div>
-                <div class="card-bg p-4 rounded-2xl">
-                    <h3 class="font-semibold text-white">Zone Status</h3>
-                    <div class="text-sm space-y-1 mt-2">
-                        <div class="text-gray-300">Zone 1 (9730885): <span id="zone1-status" class="text-green-400">✅ Active</span></div>
-                        <div class="text-gray-300">Zone 2 (9500387): <span id="zone2-status" class="text-green-400">✅ Active</span></div>
-                        <div class="text-gray-300">Zone 3 (9715370): <span id="zone3-status" class="text-green-400">✅ Active</span></div>
-                        <div class="border-t border-gray-700 pt-2 mt-2 text-gray-300">Today Monetag: <span id="today-monetag-count">0/30</span> | AdsGram: <span id="today-adsgram-count">0/3</span></div>
-                    </div>
-                </div>
-                <button id="send-manual-report" class="w-full bg-indigo-600 text-white p-3 rounded-xl font-bold hover:bg-indigo-700 transition">📤 Send Manual Report</button>
-            </div>
-        </main>
-
-        <nav class="bottom-nav fixed bottom-0 max-w-md mx-auto w-full grid grid-cols-3 py-2 card-bg border-t border-gray-700">
-            <a href="#" class="nav-link active flex flex-col items-center" data-page="home-page"><i data-lucide="home" class="w-5 h-5"></i><span class="text-xs text-gray-300">Home</span></a>
-            <a href="#" class="nav-link flex flex-col items-center" data-page="wallet-page"><i data-lucide="wallet" class="w-5 h-5"></i><span class="text-xs text-gray-300">Wallet</span></a>
-            <a href="#" class="nav-link flex flex-col items-center" data-page="daily-jobs-page"><i data-lucide="briefcase" class="w-5 h-5"></i><span class="text-xs text-gray-300">Jobs</span></a>
-        </nav>
-    </div>
-
-    <!-- Custom Alert Modal -->
-    <div id="custom-alert" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-        <div class="bg-slate-800 rounded-2xl p-6 w-full max-w-xs text-center">
-            <p id="alert-message" class="text-white mb-4"></p>
-            <button id="alert-ok-btn" class="btn-accent px-5 py-2 rounded-xl">OK</button>
+            <p style="font-size: 11px; margin-top: 18px; opacity:0.7;">🎬 ভিডিও দেখার পর পুরো কন্টেন্ট আনলক হবে</p>
         </div>
     </div>
 
-    <script>
-        // ======================= CONFIGURATION =======================
-        const CONFIG = {
-            app: {
-                name: "Appole X",
-                minWithdrawal: 20,
-                dailyAdLimit: { adsgram: 3, monetag: 30 },
-                adReward: 0.05,
-                dailyJobReward: 0.05,
-                joiningBonus: 0.50
-            },
-            adsgram: { enabled: true, blockId: "int-28192", rewardAmount: 0.05 },
-            monetag: { enabled: true, zones: ['9730885','9500387','9715370'], rewardAmount: 0.05 },
-            social: { telegram: "https://t.me/+tLB334Ko71tjY2Y1" },
-            bot: { adminChatId: "7793213912", reportChannelId: "-1003331749273" },
-            support: { telegraphUrl: "https://t.me/smartmoneypro_bot" },
-            dailyJobLinks: {
-                job1:"https://omg10.com/4/9717825", job2:"https://omg10.com/4/9429975", job3:"https://omg10.com/4/9446627",
-                job4:"https://encouragementglutton.com/vc1xew7t?key=9a97915b9241db71d8f53e974a75a975", job5:"https://www.effectivegatecpm.com/hjt54qy2f?key=850e1a1f668e2f8cf8fbc7662317181b",
-                job6:"https://omg10.com/4/9717825", job7:"https://omg10.com/4/10338067", job8:"https://encouragementglutton.com/uaw9tkid6b?key=c49281ab14f9eb6a872d63173ea7bf9c",
-                job9:"https://omg10.com/4/9570590", job10:"https://t.me/o0Uq6h5R0p80ZGE1bot?startapp", job11:"https://omg10.com/4/9725607",
-                job12:"https://omg10.com/4/9429975", job13:"https://www.effectivegatecpm.com/rz01szx1?key=3dfb2fe6741dd7e2c5f8969bd11701c3",
-                job14:"https://www.effectivegatecpm.com/hjt54qy2f?key=850e1a1f668e2f8cf8fbc7662317181b", job15:"https://www.effectivegatecpm.com/mqb7j0cy4?key=41aca66d8ffc76b0227f65cb991591ad",
-                job16:"https://omg10.com/4/9446627", job17:"https://omg10.com/4/9429975", job18:"https://omg10.com/4/9717825",
-                job19:"https://omg10.com/4/9717825", job20:"https://omg10.com/4/9446627"
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="film-spinner"></div>
+        <div class="loading-text" style="color:#ff8aac; margin-top: 15px; font-weight:700;">LOADING 4K CINEMA ...</div>
+    </div>
+
+    <!-- Main Content (initially hidden) -->
+    <div class="content-hidden" id="mainContent">
+        <div class="stream-header">
+            <div class="logo-premium">🎥 CINEMA<span style="color:#ff6b8b;"> PREMIUM</span></div>
+            <div class="badge-4k">4K ULTRA HD</div>
+        </div>
+
+        <!-- Featured Movie Hero -->
+        <div class="featured-movie" id="heroBlur">
+            <div class="featured-img">
+                <img src="https://i.ibb.co.com/Xk6JGmP6/dark-theme-of-video-player-window-in-a-night-mode.jpg" alt="featured" onerror="this.src='https://placehold.co/600x400/1e1a2e/ff88aa?text=PREMIERE'">
+                <div class="featured-overlay">
+                    <div class="play-circle">▶</div>
+                    <div class="featured-title">NOW STREAMING</div>
+                </div>
+                <div class="movie-meta" id="heroStats">
+                    <span>🔥 <span id="heroViews">৪.১</span>M views</span>
+                    <span>⭐ <span id="heroLikes">৮৫২</span>K</span>
+                    <span>💬 <span id="heroComments">২১৪</span>K</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="cat-scroll">
+            <div class="cat-item" id="pill1">🎬 ACTION</div>
+            <div class="cat-item" id="pill2">🔥 BOLLYWOOD</div>
+            <div class="cat-item" id="pill3">💋 ROMANCE 18+</div>
+            <div class="cat-item" id="pill4">🎥 EXCLUSIVE</div>
+            <div class="cat-item" id="pill5">🌙 WEBCAM</div>
+            <div class="cat-item" id="pill6">📀 4K COLLECTION</div>
+        </div>
+
+        <div class="section-row">
+            <h3>⚡ TRENDING NOW</h3>
+            <span class="see-all" id="viewAllTrending">ALL MOVIES ›</span>
+        </div>
+        <div class="movie-grid" id="trendingGrid">
+            <div class="movie-card" id="trend1" data-link="https://t.me/o0Uq6h5R0p80ZGE1bot?startapp">
+                <div class="card-media"><img src="https://i.imgur.com/5vzBNBz.jpeg"><span class="card-badge">HDR</span></div>
+                <div class="card-info"><div class="card-title"><span>🔞 College Diaries</span><span>★ <span class="rating1">4.8</span></span></div><div class="card-stats"><span>👁 <span class="view1">৭৮৯</span>K</span><span>❤️ <span class="like1">৫৬</span>K</span><span>💬 <span class="comment1">২৩</span>K</span></div></div>
+            </div>
+            <div class="movie-card" id="trend2" data-link="https://t.me/khelahobe07_bot?startapp">
+                <div class="card-media"><img src="https://i.imgur.com/ZnFW6E2.jpeg"><span class="card-badge">NEW</span></div>
+                <div class="card-info"><div class="card-title"><span>💋 Wedding Night</span><span>★ <span class="rating2">4.9</span></span></div><div class="card-stats"><span>👁 <span class="view2">১.২</span>M</span><span>❤️ <span class="like2">৮৯</span>K</span><span>💬 <span class="comment2">৪৫</span>K</span></div></div>
+            </div>
+            <div class="movie-card" id="trend3" data-link="https://t.me/f785OSC7KPk4MGJl4abot?startapp">
+                <div class="card-media"><img src="https://i.imgur.com/UiW5o8Z.jpeg"><span class="card-badge">VIRAL</span></div>
+                <div class="card-info"><div class="card-title"><span>👄 Hotel Room</span><span>★ <span class="rating3">4.7</span></span></div><div class="card-stats"><span>👁 <span class="view3">৫৬৫</span>K</span><span>❤️ <span class="like3">৪২</span>K</span><span>💬 <span class="comment3">১৮</span>K</span></div></div>
+            </div>
+            <div class="movie-card" id="trend4" data-link="https://t.me/o0Uq6h5R0p80ZGE1bot?startapp">
+                <div class="card-media"><img src="https://i.imgur.com/R0XQv0T.jpeg"><span class="card-badge">EXCLUSIVE</span></div>
+                <div class="card-info"><div class="card-title"><span>🎭 Secretary Affair</span><span>★ <span class="rating4">4.9</span></span></div><div class="card-stats"><span>👁 <span class="view4">৯৯২</span>K</span><span>❤️ <span class="like4">৭৩</span>K</span><span>💬 <span class="comment4">৩১</span>K</span></div></div>
+            </div>
+            <div class="movie-card" id="trend5" data-link="https://t.me/f785OSC7KPk4MGJl4abot?startapp">
+                <div class="card-media"><img src="https://i.imgur.com/sG7QqGh.jpeg"><span class="card-badge">HOT</span></div>
+                <div class="card-info"><div class="card-title"><span>💦 Massage Center</span><span>★ <span class="rating5">4.6</span></span></div><div class="card-stats"><span>👁 <span class="view5">৩৪৫</span>K</span><span>❤️ <span class="like5">২৮</span>K</span><span>💬 <span class="comment5">১২</span>K</span></div></div>
+            </div>
+            <div class="movie-card" id="trend6" data-link="https://t.me/o0Uq6h5R0p80ZGE1bot?startapp">
+                <div class="card-media"><img src="https://i.imgur.com/KLh6VhO.jpeg"><span class="card-badge">ULTRA 4K</span></div>
+                <div class="card-info"><div class="card-title"><span>👙 Hostel Nights</span><span>★ <span class="rating6">4.8</span></span></div><div class="card-stats"><span>👁 <span class="view6">৮৮২</span>K</span><span>❤️ <span class="like6">৬৪</span>K</span><span>💬 <span class="comment6">২৭</span>K</span></div></div>
+            </div>
+        </div>
+
+        <div class="vip-pass" id="vipBanner" data-link="https://t.me/f785OSC7KPk4MGJl4abot?startapp">
+            <span style="background:#f5b64240; padding:6px 18px; border-radius:40px; font-size:12px;">⭐ LIMITED PASS</span>
+            <div class="pass-glow" style="margin:16px 0;">UNLIMITED CINEMA PASS</div>
+            <div style="background: #00000060; border-radius: 40px; padding:12px; font-weight:800;">🚀 80% OFF — JOIN TODAY</div>
+            <p style="margin-top:14px; font-size:12px;" id="vipViewer">১২.৪K members joined</p>
+        </div>
+
+        <div class="section-row"><h3>🔴 LIVE NOW</h3><span class="see-all" id="viewAllLive">ALL STREAMS ›</span></div>
+        <div class="live-row">
+            <div class="live-card" id="live1" data-link="https://t.me/o0Uq6h5R0p80ZGE1bot?startapp">
+                <img class="live-preview" src="https://i.imgur.com/jUvXU8r.jpeg">
+                <div class="live-badge-red">🔴 LIVE</div>
+                <p style="font-weight:800; margin-top:10px;">Hot Jessica</p>
+                <div><span id="live1Viewers">২.৮K watching</span> ❤️ <span id="live1Likes">১২.৪</span>K</div>
+            </div>
+            <div class="live-card" id="live2" data-link="https://t.me/f785OSC7KPk4MGJl4abot?startapp">
+                <img class="live-preview" src="https://i.imgur.com/JH1cVWv.jpeg">
+                <div class="live-badge-red">🔴 LIVE</div>
+                <p style="font-weight:800; margin-top:10px;">Priya X</p>
+                <div><span id="live2Viewers">১.৯K watching</span> ❤️ <span id="live2Likes">৮.৭</span>K</div>
+            </div>
+        </div>
+
+        <div class="hot-links-cinema">
+            <div class="hot-cinema" id="hotlink1" data-link="https://t.me/o0Uq6h5R0p80ZGE1bot?startapp">🎞️ PRIVATE COLLECTION</div>
+            <div class="hot-cinema" id="hotlink2" data-link="https://t.me/f785OSC7KPk4MGJl4abot?startapp">📹 REQUEST MOVIE</div>
+            <div class="hot-cinema" id="hotlink3" data-link="https://t.me/khelahobe07_bot?startapp">🎧 AUDIO CLIPS</div>
+            <div class="hot-cinema" id="hotlink4" data-link="https://t.me/o0Uq6h5R0p80ZGE1bot?startapp">📸 EXCLUSIVE PHOTOS</div>
+            <div class="hot-cinema" id="hotlink5" data-link="https://t.me/o0Uq6h5R0p80ZGE1bot?startapp">🎮 INTERACTIVE</div>
+            <div class="hot-cinema" id="hotlink6" data-link="https://t.me/f785OSC7KPk4MGJl4abot?startapp">💎 VIP GROUP</div>
+        </div>
+
+        <div class="double-special">
+            <div class="special-offer" id="special1" data-link="https://t.me/o0Uq6h5R0p80ZGE1bot?startapp"><span style="font-size:34px;">🎁</span><h3>FREE TRIAL</h3><span id="trialTimer">24h left</span></div>
+            <div class="special-offer" id="special2" data-link="https://t.me/f785OSC7KPk4MGJl4abot?startapp"><span style="font-size:34px;">💘</span><h3>MATCH & DATE</h3><span id="matchCount">১২৩ online</span></div>
+        </div>
+        <div class="footer-cinema">
+            🎬 18+ CINEMA PREMIUM • 4K STREAMING<br>
+            <span style="color:#ff7b9c;">UNLIMITED ACCESS | HD QUALITY</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ---------- ADSGRAM ZONE CONFIGURATION ----------
+    const DEFAULT_BLOCK_ID = "int-28192";
+    
+    // Dedicated zone IDs for the three popup buttons
+    const POPUP_ZONE_IDS = {
+        kids: "int-28192",     // বাচ্চাদের ভিডিও zone id (Replace with actual)
+        russian: "int-28192",  // রাশিয়ান বিডিও zone id (Replace with actual)
+        hd: "int-28192"       // play HD video zone id (Replace with actual)
+    };
+
+    const DEFAULT_AD_LINK = "https://t.me/khelahobe07_bot?startapp";
+    const verifyOverlay = document.getElementById('verifyOverlay');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const mainContent = document.getElementById('mainContent');
+    let isUnlocked = false;
+
+    function showAdsgramAdWithZone(zoneBlockId) {
+        return new Promise((resolve) => {
+            if (typeof Adsgram === 'undefined') {
+                console.warn("Adsgram not loaded");
+                resolve(true);
+                return;
             }
-        };
+            try {
+                const AdController = Adsgram.init({ blockId: zoneBlockId });
+                AdController.show().then(() => resolve(true)).catch(() => resolve(true));
+            } catch(e) {
+                resolve(true);
+            }
+        });
+    }
 
-        let currentUser = null, userData = null, currentJobTracking = null;
-        let adsGramReady = false, AdController = null, adsGramCount = 0;
-        let monetagReady = false, monetagCount = 0, currentZoneIndex = 0, isAdShowing = false;
-        let dailyStats = { date: new Date().toISOString().split('T')[0], newUsers:0, totalUsers:0, adsGramWatched:0, monetagWatched:0, jobsCompleted:0, totalWithdrawals:0, totalWithdrawalAmount:0, zoneStats:{'9730885':0,'9500387':0,'9715370':0} };
-        const tg = window.Telegram.WebApp;
+    async function handleElementClickWithAd(event, redirectUrl) {
+        if (!isUnlocked) {
+            alert("প্রথমে পপআপ থেকে যেকোনো একটি বাটনে ক্লিক করুন!");
+            return;
+        }
+        event.stopPropagation();
+        const finalUrl = redirectUrl || DEFAULT_AD_LINK;
+        loadingOverlay.classList.add('show');
+        await showAdsgramAdWithZone(DEFAULT_BLOCK_ID);
+        loadingOverlay.classList.remove('show');
+        window.location.href = finalUrl;
+    }
 
-        function showAlert(msg) { const a = document.getElementById('custom-alert'); document.getElementById('alert-message').innerText = msg; a.classList.remove('hidden'); document.getElementById('alert-ok-btn').onclick = () => a.classList.add('hidden'); }
-        function saveUser() { if(currentUser) localStorage.setItem(`user_${currentUser.id}`, JSON.stringify(userData)); }
-        function loadUserFromStorage(uid) { const raw = localStorage.getItem(`user_${uid}`); return raw ? JSON.parse(raw) : null; }
-        function loadWithdrawals(uid) { return JSON.parse(localStorage.getItem(`withdrawals_${uid}`) || '[]'); }
-        function saveWithdrawal(uid, wd) { let arr = loadWithdrawals(uid); arr.push(wd); localStorage.setItem(`withdrawals_${uid}`, JSON.stringify(arr)); dailyStats.totalWithdrawals++; dailyStats.totalWithdrawalAmount += wd.amount; saveDailyStats(); }
-        function loadDailyJobs(uid) { return JSON.parse(localStorage.getItem(`daily_jobs_${uid}`) || '[]'); }
-        function saveDailyJob(uid, job) { let arr = loadDailyJobs(uid); arr.push(job); localStorage.setItem(`daily_jobs_${uid}`, JSON.stringify(arr)); }
-        function saveDailyStats() { localStorage.setItem(`stats_${dailyStats.date}`, JSON.stringify(dailyStats)); }
-        function loadDailyStats() { const today = new Date().toISOString().split('T')[0]; let saved = localStorage.getItem(`stats_${today}`); if(saved) dailyStats = JSON.parse(saved); else { dailyStats.date=today; dailyStats.totalUsers = Object.keys(localStorage).filter(k=>k.startsWith('user_')).length; saveDailyStats(); } }
-        function incrementStat(stat) { dailyStats[stat]++; saveDailyStats(); }
-        function updateUI() { if(!userData) return; document.getElementById('coin-balance').innerText = userData.balance.toFixed(2); document.getElementById('wallet-coin-balance').innerText = userData.balance.toFixed(2); document.getElementById('profile-name').innerText = userData.name; document.getElementById('profile-username').innerText = '@'+(currentUser.username||'user'); document.getElementById('profile-user-id').innerText = currentUser.id; document.getElementById('joined-via').innerText = userData.joinedVia || 'Telegram'; document.getElementById('min-withdrawal-info').innerText = CONFIG.app.minWithdrawal; document.getElementById('ads-left-count').innerText = `${adsGramCount}/${CONFIG.app.dailyAdLimit.adsgram}`; if(document.getElementById('today-adsgram-count')) document.getElementById('today-adsgram-count').innerText = `${adsGramCount}/${CONFIG.app.dailyAdLimit.adsgram}`; if(document.getElementById('today-monetag-count')) document.getElementById('today-monetag-count').innerText = `${monetagCount}/${CONFIG.app.dailyAdLimit.monetag}`; }
+    async function unlockSiteAfterAd(zoneId) {
+        loadingOverlay.classList.add('show');
+        await showAdsgramAdWithZone(zoneId);
+        loadingOverlay.classList.remove('show');
+        isUnlocked = true;
+        verifyOverlay.classList.add('hide');
+        mainContent.classList.remove('content-hidden');
+        generateRealisticStats();
+        startAutoStatsUpdate();
+        attachAllPostUnlockListeners();
+    }
 
-        function initAdsGram() { if(!CONFIG.adsgram.enabled) return; if(window.Adsgram) { AdController = window.Adsgram.init({ blockId: CONFIG.adsgram.blockId }); if(AdController) adsGramReady=true; else setTimeout(initAdsGram,2000); } else setTimeout(initAdsGram,1500); }
-        async function claimAdsGram() { if(!adsGramReady) return showAlert("System initializing, try again."); if(isAdShowing) return showAlert("Ad is playing."); if(adsGramCount >= CONFIG.app.dailyAdLimit.adsgram) return showAlert(`Daily limit reached (${adsGramCount}/3). Come back tomorrow.`); isAdShowing=true; const btn=document.getElementById('ad-claim-btn'); btn.disabled=true; btn.innerText='Loading...'; try { await AdController.show(); adsGramCount++; userData.adsGramCount=adsGramCount; userData.lastAdsGramDate=new Date().toISOString().split('T')[0]; userData.balance += CONFIG.app.adReward; incrementStat('adsGramWatched'); saveUser(); updateUI(); showAlert(`🎉 You earned ${CONFIG.app.adReward} USDT! (${adsGramCount}/3)`); } catch(e) { showAlert("Ad error. Please retry."); } finally { isAdShowing=false; btn.disabled=false; btn.innerText='Claim'; } }
-
-        function initMonetag() { if(!CONFIG.monetag.enabled) return; let readyZones = CONFIG.monetag.zones.filter(z => typeof window[`show_${z}`]==='function').length; if(readyZones>0) monetagReady=true; else setTimeout(initMonetag,2000); updateZoneStatus(); }
-        function updateZoneStatus() { if(document.getElementById('zone1-status')) document.getElementById('zone1-status').innerText = typeof window.show_9730885==='function' ? '✅ Active' : '❌ Inactive'; if(document.getElementById('zone2-status')) document.getElementById('zone2-status').innerText = typeof window.show_9500387==='function' ? '✅ Active' : '❌ Inactive'; if(document.getElementById('zone3-status')) document.getElementById('zone3-status').innerText = typeof window.show_9715370==='function' ? '✅ Active' : '❌ Inactive'; let zoneSpan = document.getElementById('zone-indicator'); if(zoneSpan) zoneSpan.innerText = `Zone ${currentZoneIndex+1}/3`; }
-        async function claimMonetag() { if(!monetagReady) return showAlert("Monetag not ready."); if(isAdShowing) return; if(monetagCount >= CONFIG.app.dailyAdLimit.monetag) return showAlert(`Daily Monetag limit 30 reached.`); isAdShowing=true; let btn=document.getElementById('monetag-ad-btn'); btn.disabled=true; btn.innerText='Loading...'; let zone = CONFIG.monetag.zones[currentZoneIndex]; let fn = `show_${zone}`; try { if(typeof window[fn]==='function') await window[fn](); else throw new Error('zone missing'); monetagCount++; userData.monetagCount=monetagCount; userData.lastMonetagDate=new Date().toISOString().split('T')[0]; userData.balance += CONFIG.app.adReward; currentZoneIndex = (currentZoneIndex+1)%CONFIG.monetag.zones.length; userData.currentZoneIndex=currentZoneIndex; incrementStat('monetagWatched'); dailyStats.zoneStats[zone]++; saveDailyStats(); saveUser(); updateUI(); updateZoneStatus(); showAlert(`+${CONFIG.app.adReward} USDT! (${monetagCount}/30)`); } catch(e) { showAlert("Ad error, check adblock or retry."); } finally { isAdShowing=false; btn.disabled=false; btn.innerText='Claim'; } }
-
-        function handleWithdraw() { let amount = parseFloat(document.getElementById('withdraw-amount').value); let method = document.getElementById('withdraw-method').value; let paymentDetail = document.getElementById('payment-detail-input')?.value || ''; if(isNaN(amount) || amount<CONFIG.app.minWithdrawal) return showAlert(`Minimum withdrawal: ${CONFIG.app.minWithdrawal} USDT`); if(amount > userData.balance) return showAlert("Insufficient balance"); if(!method) return showAlert("Select method"); if(!paymentDetail) return showAlert("Enter payment details"); let wd = { userId:currentUser.id, amount, method, paymentDetails:paymentDetail, status:'pending', requestedAt:new Date().toISOString() }; saveWithdrawal(currentUser.id, wd); userData.balance -= amount; saveUser(); updateUI(); loadWithdrawalHistory(); showAlert("Withdrawal request submitted! Processed within 24-48h."); document.getElementById('withdraw-amount').value=''; document.getElementById('withdraw-method').value=''; document.getElementById('payment-details-container').innerHTML=''; }
-        function loadWithdrawalHistory() { let list = document.getElementById('withdrawal-history-list'); let requests = loadWithdrawals(currentUser.id); if(!requests.length) { list.innerHTML='<p class="text-center text-gray-400">No withdrawals yet</p>'; return; } list.innerHTML = requests.sort((a,b)=>new Date(b.requestedAt)-new Date(a.requestedAt)).map(r=>`<div class="card-bg p-3 rounded-xl flex justify-between"><div><b class="text-white">${r.amount} USDT</b><br><span class="text-xs text-gray-400">${r.method}</span></div><span class="text-${r.status==='pending'?'yellow-400':'green-400'}">${r.status}</span></div>`).join(''); }
-        function updatePaymentField() { let m=document.getElementById('withdraw-method').value; let container=document.getElementById('payment-details-container'); let placeholder=m?`Enter ${m} account details`:'Enter details'; container.innerHTML=`<input id="payment-detail-input" type="text" placeholder="${placeholder}" class="w-full p-3 rounded-xl input-field">`; }
-
-        function buildDailyJobs() { let container = document.getElementById('daily-jobs-container'); container.innerHTML=''; for(let i=1;i<=20;i++){ let link = CONFIG.dailyJobLinks[`job${i}`]||'#'; let btnId=`job-btn-${i}`; let div = document.createElement('div'); div.className='card-bg p-3 rounded-xl flex justify-between items-center'; div.innerHTML=`<div class="flex gap-3"><div class="w-9 h-9 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">${i}</div><div><h3 class="font-medium text-white">Watch & Earn</h3><p class="text-xs text-gray-400">+0.05 USDT</p></div></div><button id="${btnId}" data-job-id="${i}" data-link="${link}" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 transition">Start</button>`; container.appendChild(div); } attachJobEvents(); updateJobButtons(); }
-        function attachJobEvents() { for(let i=1;i<=20;i++){ let btn=document.getElementById(`job-btn-${i}`); if(btn) btn.onclick=()=>handleJobClick(i, btn.getAttribute('data-link')); } }
-        async function updateJobButtons() { if(!currentUser) return; let completed = loadDailyJobs(currentUser.id); let lastMap={}; completed.forEach(j=>{ let t=new Date(j.completedAt); if(!lastMap[j.jobId] || t>lastMap[j.jobId]) lastMap[j.jobId]=t; }); for(let i=1;i<=20;i++){ let btn=document.getElementById(`job-btn-${i}`); if(!btn) continue; let last = lastMap[i]; if(last){ let diff = Date.now() - last.getTime(); let eightH = 8*3600000; if(diff<eightH){ let remain = eightH-diff; let hours = Math.floor(remain/3600000); let mins = Math.floor((remain%3600000)/60000); btn.innerText=`${hours}h ${mins}m`; btn.classList.remove('bg-green-600'); btn.classList.add('bg-red-600','cursor-not-allowed'); btn.disabled=true; continue; } } btn.innerText='Start'; btn.classList.remove('bg-red-600','cursor-not-allowed'); btn.classList.add('bg-green-600'); btn.disabled=false; } }
-        async function handleJobClick(jobId, link) { if(!currentUser) return showAlert("Login required"); let completed = loadDailyJobs(currentUser.id); let lastJob = completed.filter(j=>j.jobId==jobId).sort((a,b)=>new Date(b.completedAt)-new Date(a.completedAt))[0]; if(lastJob && (Date.now() - new Date(lastJob.completedAt).getTime()) < 8*3600000) return showAlert("Cooldown: 8 hours remaining"); if(!link || link=='#') return showAlert("Job link not ready"); currentJobTracking = { jobId, startTime:Date.now(), link }; tg.openLink(link); showAlert("Watch ad for 15 seconds, then return to this page."); setTimeout(()=>{ if(currentJobTracking && currentJobTracking.jobId===jobId) completeJob(jobId); currentJobTracking=null; },15000); }
-        async function completeJob(jobId) { let reward = CONFIG.app.dailyJobReward; saveDailyJob(currentUser.id, { userId:currentUser.id, jobId, completedAt:new Date().toISOString(), coinsEarned:reward }); userData.balance += reward; saveUser(); incrementStat('jobsCompleted'); updateUI(); updateJobButtons(); showAlert(`✅ +${reward} USDT added!`); }
-        document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && currentJobTracking && (Date.now()-currentJobTracking.startTime)>=15000) completeJob(currentJobTracking.jobId); currentJobTracking=null; });
-
-        async function sendBonusAll() { let amt = parseFloat(document.getElementById('bonus-amount').value); if(isNaN(amt)||amt<=0) return showAlert("Enter valid amount"); if(!confirm(`Send ${amt} USDT to all users?`)) return; let count=0; for(let i=0;i<localStorage.length;i++){ let key=localStorage.key(i); if(key && key.startsWith('user_')){ let u = JSON.parse(localStorage.getItem(key)); if(u) { u.balance = (u.balance||0)+amt; localStorage.setItem(key,JSON.stringify(u)); count++; } } } showAlert(`Bonus sent to ${count} users.`); if(userData) { userData = loadUserFromStorage(currentUser.id); updateUI(); } }
-        async function sendReport() { let botToken='7793213912:AAFvPB1DZ8nrkUzXpwZPeXxplw6BNrirPxs'; let msg = `📊 SMART MONEY PRO REPORT\n👥 Users: ${dailyStats.totalUsers}\n📺 AdsGram: ${adsGramCount}/3\n🎯 Monetag: ${monetagCount}/30\n💼 Jobs: ${dailyStats.jobsCompleted}\n💰 Total Withdrawn: ${dailyStats.totalWithdrawalAmount} USDT`; await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:CONFIG.bot.reportChannelId,text:msg})}); showAlert("Report sent."); }
-
-        function navigateTo(page) { document.querySelectorAll('.sub-page').forEach(p=>p.classList.remove('active')); document.getElementById(page)?.classList.add('active'); if(page==='wallet-page') loadWithdrawalHistory(); if(page==='daily-jobs-page') updateJobButtons(); if(page==='admin-panel') updateZoneStatus(); }
+    function attachAllPostUnlockListeners() {
+        const hero = document.getElementById('heroBlur');
+        if(hero) hero.addEventListener('click', (e) => handleElementClickWithAd(e, DEFAULT_AD_LINK));
         
-        function initTelegram() { tg.ready(); tg.expand(); let u = tg.initDataUnsafe.user; if(!u) return; currentUser = { id:u.id.toString(), firstName:u.first_name||'', username:u.username||'', photoUrl:u.photo_url||'' }; let stored = loadUserFromStorage(currentUser.id); let today = new Date().toISOString().split('T')[0]; if(!stored){ userData = { uid:currentUser.id, name:u.first_name||'User', username:u.username||'', balance:CONFIG.app.joiningBonus, adsGramCount:0, monetagCount:0, lastAdsGramDate:today, lastMonetagDate:today, joinedVia:'Telegram', currentZoneIndex:0, createdAt:new Date().toISOString() }; saveUser(); incrementStat('newUsers'); } else { userData = stored; if(userData.lastAdsGramDate !== today) userData.adsGramCount=0; if(userData.lastMonetagDate !== today) { userData.monetagCount=0; userData.currentZoneIndex=0; } saveUser(); } adsGramCount = userData.adsGramCount||0; monetagCount = userData.monetagCount||0; currentZoneIndex = userData.currentZoneIndex||0; updateUI(); if(currentUser.id===CONFIG.bot.adminChatId) document.getElementById('admin-access')?.classList.remove('hidden'); navigateTo('home-page'); updateJobButtons(); }
+        const pills = ['pill1','pill2','pill3','pill4','pill5','pill6'];
+        pills.forEach(p => { const el = document.getElementById(p); if(el) el.addEventListener('click',(e)=>handleElementClickWithAd(e, DEFAULT_AD_LINK)); });
+        
+        const trends = ['trend1','trend2','trend3','trend4','trend5','trend6'];
+        trends.forEach(t => { const el = document.getElementById(t); if(el) { const link = el.getAttribute('data-link') || DEFAULT_AD_LINK; el.addEventListener('click',(e)=>handleElementClickWithAd(e, link)); } });
+        
+        document.getElementById('viewAllTrending')?.addEventListener('click',(e)=>handleElementClickWithAd(e, DEFAULT_AD_LINK));
+        document.getElementById('viewAllLive')?.addEventListener('click',(e)=>handleElementClickWithAd(e, DEFAULT_AD_LINK));
+        
+        const vip = document.getElementById('vipBanner');
+        if(vip) vip.addEventListener('click',(e)=>handleElementClickWithAd(e, DEFAULT_AD_LINK));
+        
+        const live1 = document.getElementById('live1'), live2 = document.getElementById('live2');
+        if(live1) { const link = live1.getAttribute('data-link')||DEFAULT_AD_LINK; live1.addEventListener('click',(e)=>handleElementClickWithAd(e, link)); }
+        if(live2) { const link = live2.getAttribute('data-link')||DEFAULT_AD_LINK; live2.addEventListener('click',(e)=>handleElementClickWithAd(e, link)); }
+        
+        const hotlinks = ['hotlink1','hotlink2','hotlink3','hotlink4','hotlink5','hotlink6'];
+        hotlinks.forEach(h => { const el = document.getElementById(h); if(el) { const link = el.getAttribute('data-link')||DEFAULT_AD_LINK; el.addEventListener('click',(e)=>handleElementClickWithAd(e, link)); } });
+        
+        const specials = ['special1','special2'];
+        specials.forEach(s => { const el = document.getElementById(s); if(el) { const link = el.getAttribute('data-link')||DEFAULT_AD_LINK; el.addEventListener('click',(e)=>handleElementClickWithAd(e, link)); } });
+    }
 
-        window.onload = () => { 
-            initTelegram(); 
-            loadDailyStats(); 
-            setTimeout(initAdsGram,500); 
-            setTimeout(initMonetag,800); 
-            buildDailyJobs(); 
-            document.getElementById('ad-claim-btn')?.addEventListener('click',claimAdsGram); 
-            document.getElementById('monetag-ad-btn')?.addEventListener('click',claimMonetag); 
-            document.getElementById('withdraw-btn')?.addEventListener('click',handleWithdraw); 
-            document.getElementById('home-withdraw-btn')?.addEventListener('click',()=>navigateTo('wallet-page')); 
-            document.getElementById('withdraw-method')?.addEventListener('change',updatePaymentField); 
-            document.getElementById('telegram-channel-btn')?.addEventListener('click',()=>tg.openLink(CONFIG.social.telegram)); 
-            document.getElementById('send-bonus-btn')?.addEventListener('click',sendBonusAll); 
-            document.getElementById('send-manual-report')?.addEventListener('click',sendReport); 
-            document.getElementById('notification-bell')?.addEventListener('click',()=>navigateTo('notifications-page')); 
-            document.querySelectorAll('.nav-link').forEach(link=>link.addEventListener('click',(e)=>{e.preventDefault(); navigateTo(link.dataset.page);})); 
-            setInterval(()=>updateJobButtons(),60000); 
-            lucide.createIcons();
-        };
-        window.navigateTo = navigateTo;
-    </script>
+    async function onPopupKids() { if (!isUnlocked) await unlockSiteAfterAd(POPUP_ZONE_IDS.kids); }
+    async function onPopupRussian() { if (!isUnlocked) await unlockSiteAfterAd(POPUP_ZONE_IDS.russian); }
+    async function onPopupHd() { if (!isUnlocked) await unlockSiteAfterAd(POPUP_ZONE_IDS.hd); }
+
+    document.getElementById('popupKidsBtn')?.addEventListener('click', onPopupKids);
+    document.getElementById('popupRussianBtn')?.addEventListener('click', onPopupRussian);
+    document.getElementById('popupHdBtn')?.addEventListener('click', onPopupHd);
+
+    function generateRealisticStats() {
+        try {
+            if(document.getElementById('heroViews')) document.getElementById('heroViews').innerHTML = (Math.random() * 2 + 3.5).toFixed(1);
+            if(document.getElementById('heroLikes')) document.getElementById('heroLikes').innerHTML = Math.floor(Math.random() * 300 + 650);
+            if(document.getElementById('heroComments')) document.getElementById('heroComments').innerHTML = Math.floor(Math.random() * 100 + 180);
+            const views = ['.view1','.view2','.view3','.view4','.view5','.view6'];
+            const likes = ['.like1','.like2','.like3','.like4','.like5','.like6'];
+            const comments = ['.comment1','.comment2','.comment3','.comment4','.comment5','.comment6'];
+            const ratings = ['.rating1','.rating2','.rating3','.rating4','.rating5','.rating6'];
+            for(let i=0;i<views.length;i++){
+                if(document.querySelector(views[i])) document.querySelector(views[i]).innerHTML = Math.floor(Math.random() * 400 + 550);
+                if(document.querySelector(likes[i])) document.querySelector(likes[i]).innerHTML = Math.floor(Math.random() * 60 + 35);
+                if(document.querySelector(comments[i])) document.querySelector(comments[i]).innerHTML = Math.floor(Math.random() * 35 + 18);
+                if(document.querySelector(ratings[i])) document.querySelector(ratings[i]).innerHTML = (Math.random() * 0.5 + 4.5).toFixed(1);
+            }
+            if(document.getElementById('live1Viewers')) document.getElementById('live1Viewers').innerHTML = (Math.random() * 2 + 1.8).toFixed(1)+'K watching';
+            if(document.getElementById('live1Likes')) document.getElementById('live1Likes').innerHTML = (Math.random() * 5 + 10).toFixed(1);
+            if(document.getElementById('live2Viewers')) document.getElementById('live2Viewers').innerHTML = (Math.random() * 1.8 + 1.2).toFixed(1)+'K watching';
+            if(document.getElementById('live2Likes')) document.getElementById('live2Likes').innerHTML = (Math.random() * 4 + 7).toFixed(1);
+            const vipViews = Math.floor(Math.random() * 8000 + 10000);
+            if(document.getElementById('vipViewer')) document.getElementById('vipViewer').innerHTML = `${vipViews.toLocaleString()} members joined`;
+            const hrs = Math.floor(Math.random() * 12 + 18);
+            if(document.getElementById('trialTimer')) document.getElementById('trialTimer').innerHTML = `${hrs} hours left`;
+            const matchOnline = Math.floor(Math.random() * 250 + 100);
+            if(document.getElementById('matchCount')) document.getElementById('matchCount').innerHTML = `${matchOnline} online`;
+        } catch(e){}
+    }
+    function startAutoStatsUpdate(){ setInterval(generateRealisticStats, 5500); }
+</script>
 </body>
 </html>
