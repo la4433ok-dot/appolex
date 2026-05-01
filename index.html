@@ -4,9 +4,11 @@
 
   <script>
 window.onload = function() {
-    window.Adsgram.init({ blockId: "int-28192" }).show();
+    window.Adsgram.init({ blockId: "int-28192" }).show()
+    .then(() => console.log("Ad done"))
+    .catch(e => console.log(e));
 }
-      </script>
+  </script>
   
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
